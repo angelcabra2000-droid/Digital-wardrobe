@@ -7,6 +7,14 @@ Recibe una imagen "cruda" (foto de una prenda) y la deja lista para la
 etapa de segmentación: tamaño estándar, iluminación normalizada y ruido
 reducido.
 
+Protocolo de captura asumido (solo 2 reglas, para no complicarle la vida
+al usuario del armario digital):
+1. El fondo debe contrastar en brillo/color con la prenda.
+2. La prenda debe estar extendida y plana (no doblada sobre sí misma).
+
+Las sombras e iluminación despareja NO se controlan en la captura; se
+asumen y se corrigen algorítmicamente en normalize_illumination().
+
 Criterio de "pureza" usado en este archivo:
 - Se usa cv2/numpy SOLO como infraestructura (leer/guardar archivo,
   redimensionar, convertir espacio de color) porque esas operaciones
@@ -15,9 +23,21 @@ Criterio de "pureza" usado en este archivo:
   y ecualización de histograma) están implementados a mano con numpy,
   sin usar cv2.GaussianBlur, cv2.medianBlur ni cv2.createCLAHE.
 
-Cada función es "pura": recibe una imagen (array de numpy) y devuelve
-una imagen nueva, sin efectos secundarios. Esto facilita probarlas por
-separado y encadenarlas en cualquier orden.
+Nota sobre el letterbox y la máscara de región válida:
+resize_image() ya NO devuelve solo la imagen; devuelve una tupla
+(canvas, mask). El relleno negro del letterbox no es parte de la foto
+real, y si se deja "invisible" para el resto del pipeline, contamina
+el histograma que segmentation.py usará para Otsu (crea un pico
+artificial enorme en negro que no tiene nada que ver con el fondo real
+de la prenda). mask es un array booleano (alto x ancho) que marca con
+True los píxeles que sí vienen de la foto original, y con False el
+relleno. Esa máscara se propaga por preprocess_image() para que quien
+calcule el umbral de Otsu más adelante pueda ignorar el padding.
+
+Cada función de procesamiento de imagen (denoise, ecualización) sigue
+siendo "pura" en el sentido de que no muta su entrada; sí cambian las
+firmas de resize_image, preprocess_image y prepare_for_display para
+cargar la máscara.
 """
 
 import cv2
@@ -37,7 +57,9 @@ def load_image(path: str) -> np.ndarray:
     return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 
-def resize_image(image: np.ndarray, target_size: tuple[int, int] = (512, 512)) -> np.ndarray:
+def resize_image(
+    image: np.ndarray, target_size: tuple[int, int] = (512, 512)
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Redimensiona la imagen a un tamaño estándar (ancho, alto),
     MANTENIENDO la proporción original y rellenando el sobrante
@@ -55,6 +77,21 @@ def resize_image(image: np.ndarray, target_size: tuple[int, int] = (512, 512)) -
        deformar la imagen.
     2. Redimensiona con ese factor (mismo aspecto que el original).
     3. Centra el resultado sobre un lienzo negro de target_size.
+
+    Bug corregido: el relleno negro (0,0,0) del letterbox, si no se
+    marca de alguna forma, se ve como "fondo" para cualquier algoritmo
+    que analice la imagen completa más adelante (ej. Otsu en
+    segmentation.py). Con fotos donde la prenda ya es oscura, ese
+    relleno puede fundirse con la prenda o crear un pico de histograma
+    artificial que no representa nada real.
+
+    Por eso esta función ahora devuelve una TUPLA (canvas, mask):
+    - canvas: la imagen con letterbox, igual que antes.
+    - mask: array booleano del mismo alto x ancho que canvas, con
+      True en los píxeles que sí vienen de la foto original y False
+      en los píxeles de relleno. segmentation.py debe usar esta
+      máscara para calcular el histograma de Otsu SOLO sobre los
+      píxeles válidos (mask == True), ignorando el padding.
     """
     target_w, target_h = target_size
     h, w = image.shape[:2]
@@ -69,7 +106,12 @@ def resize_image(image: np.ndarray, target_size: tuple[int, int] = (512, 512)) -
     y_offset = (target_h - new_h) // 2
     canvas[y_offset:y_offset + new_h, x_offset:x_offset + new_w] = resized
 
-    return canvas
+    # La máscara nace en False (todo relleno) y se marca en True solo
+    # donde realmente pegamos la imagen redimensionada.
+    mask = np.zeros((target_h, target_w), dtype=bool)
+    mask[y_offset:y_offset + new_h, x_offset:x_offset + new_w] = True
+
+    return canvas, mask
 
 
 def _gaussian_kernel(size: int = 5, sigma: float = 1.0) -> np.ndarray:
@@ -168,7 +210,9 @@ def normalize_illumination(image: np.ndarray) -> np.ndarray:
     return cv2.cvtColor(ycrcb_eq, cv2.COLOR_YCrCb2RGB)
 
 
-def prepare_for_display(path: str, target_size: tuple[int, int] = (512, 512)) -> np.ndarray:
+def prepare_for_display(
+    path: str, target_size: tuple[int, int] = (512, 512)
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Prepara una versión NÍTIDA de la imagen, solo para mostrarla en la
     app/armario digital (nunca se le aplica ecualización ni desenfoque).
@@ -176,6 +220,10 @@ def prepare_for_display(path: str, target_size: tuple[int, int] = (512, 512)) ->
     Solo hace lo mínimo de infraestructura: cargar y ajustar el tamaño
     manteniendo la proporción (letterbox), para que se vea consistente
     en la interfaz sin distorsionar ni desenfocar la prenda real.
+
+    Devuelve (imagen, mask). La UI normalmente solo necesita la imagen;
+    la máscara se incluye por consistencia con preprocess_image(), por
+    si en algún momento se quiere recortar el letterbox visualmente.
     """
     image = load_image(path)
     return resize_image(image, target_size)
@@ -186,7 +234,7 @@ def preprocess_image(
     target_size: tuple[int, int] = (512, 512),
     kernel_size: int = 5,
     sigma: float = 1.0,
-) -> np.ndarray:
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Encadena todos los pasos de preprocesamiento en el orden correcto:
     cargar -> redimensionar -> normalizar iluminación -> reducir ruido.
@@ -199,12 +247,17 @@ def preprocess_image(
     Se normaliza la iluminación antes de suavizar para que el filtro
     Gaussiano final también ayude a disimular el ruido que a veces
     introduce la ecualización de histograma en zonas muy uniformes.
+
+    Devuelve (imagen_preprocesada, mask). segmentation.py DEBE recibir
+    y usar mask: el histograma para Otsu se calcula solo sobre los
+    píxeles donde mask == True, para no dejar que el relleno negro del
+    letterbox contamine el umbral.
     """
     image = load_image(path)
-    image = resize_image(image, target_size)
+    image, mask = resize_image(image, target_size)
     image = normalize_illumination(image)
     image = denoise_image(image, kernel_size, sigma)
-    return image
+    return image, mask
 
 
 if __name__ == "__main__":
@@ -217,14 +270,22 @@ if __name__ == "__main__":
         sys.exit(0)
 
     # Versión para mostrar en la app (nítida, sin blur ni ecualización)
-    display_result = prepare_for_display(sys.argv[1])
+    display_result, display_mask = prepare_for_display(sys.argv[1])
     display_bgr = cv2.cvtColor(display_result, cv2.COLOR_RGB2BGR)
     cv2.imwrite("resultado_para_mostrar.jpg", display_bgr)
     print("Versión para mostrar guardada en resultado_para_mostrar.jpg (nítida)")
 
     # Versión para el pipeline interno (ecualizada + suavizada)
-    resultado = preprocess_image(sys.argv[1])
+    resultado, mask = preprocess_image(sys.argv[1])
     print(f"Imagen preprocesada correctamente. Shape final: {resultado.shape}")
+    print(f"Píxeles válidos (sin letterbox): {mask.sum()} de {mask.size} "
+          f"({100 * mask.sum() / mask.size:.1f}%)")
     salida = cv2.cvtColor(resultado, cv2.COLOR_RGB2BGR)
     cv2.imwrite("preprocesado_resultado.jpg", salida)
     print("Versión para el pipeline (interna) guardada en preprocesado_resultado.jpg")
+
+    # Guardamos también la máscara como imagen (blanco = válido, negro =
+    # relleno) solo para poder inspeccionarla visualmente si hace falta.
+    mask_visual = (mask.astype(np.uint8) * 255)
+    cv2.imwrite("mascara_valida.jpg", mask_visual)
+    print("Máscara de región válida guardada en mascara_valida.jpg (para depurar)")
