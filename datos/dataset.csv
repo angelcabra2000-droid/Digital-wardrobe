@@ -1,0 +1,143 @@
+﻿id,ruta,categoria,ancho,alto,sha1,ahash,grupo,incluir,motivo,avisos,split,muestra_mascara
+cam_001,camisas/camisa_ (1).jpg,camisas,547,729,37e0ba5282c04e706680bd882a06e3fca530d54c,ffdfd18181c3c3ff,g_37e0ba52,si,,,entrenamiento,
+cam_002,camisas/camisa_ (10).jpg,camisas,396,594,92cdd130e30b70ab0f8ecdd51a743c71579b587c,ffff83818383ffff,g_92cdd130,si,,,entrenamiento,
+cam_003,camisas/camisa_ (11).jpg,camisas,1200,1800,72ef972baaf4e2bc5d39418aa83a412ea1bc4af1,ffffd383838383ff,g_72ef972b,si,,,prueba,
+cam_004,camisas/camisa_ (12).jpg,camisas,736,736,02dd338d891eaaf0ec691377be75f174399fd043,ffd381c3c3e3e7ff,,no,exclusion_manual,,,
+cam_005,camisas/camisa_ (2).jpg,camisas,834,1280,6a08fc70bf232158c009dc232d288dbe0a706299,ffffc180c3c3ffff,g_6a08fc70,si,,,prueba,
+cam_006,camisas/camisa_ (3).jpg,camisas,800,1000,000b24c7795bb0d7efd19a012a82e6ea7a667afb,ffc38181c3c3c3ff,g_000b24c7,si,,,entrenamiento,
+cam_007,camisas/camisa_ (4).jpg,camisas,736,1066,035473f24addbc3573665d0e894dcd7d25ee6c23,ffc381818180c3ff,g_035473f2,si,,,entrenamiento,si
+cam_008,camisas/camisa_ (5).jpg,camisas,736,1104,c48a2c5e0f3bacf4a2ea7f9e8093211a9bf91967,ffdb81c3c3c3c7ff,g_c48a2c5e,si,,,entrenamiento,
+cam_009,camisas/camisa_ (6).jpg,camisas,685,1000,03299aa4e23c85ebe8d5c2e391e344e31973dfc7,e7c10081c3c3c181,g_03299aa4,si,,,entrenamiento,si
+cam_010,camisas/camisa_ (7).jpg,camisas,1050,1400,932cbdf38731dbab067b26f584ed61f6c60dafeb,ffff8181c3c3ffff,g_932cbdf3,si,,,entrenamiento,
+cam_011,camisas/camisa_ (8).jpg,camisas,1024,1536,c8c1b7e17bf5d5dde595c6573e11f612b2ce9e5e,ffe3818181c3ffff,g_c8c1b7e1,si,,,entrenamiento,
+cam_012,camisas/camisa_ (9).jpg,camisas,736,736,50af4a25cb00ec7144c4fca1b13fcd537059b3bd,ffc38181c3c3c3c3,g_50af4a25,si,,,entrenamiento,si
+cam_013,camisas/camisa_(13).jpg,camisas,405,539,17fc282f24c5556ac162b5f2f5bd89a676c11aff,e7c3818181c1c1ff,g_17fc282f,si,,,prueba,si
+cam_014,camisas/camisa_(14).jpg,camisas,1200,1600,9e91a05105659bd6dd4009861215ea5596a64fe8,ff8381010383839f,g_9e91a051,si,,,entrenamiento,
+cam_015,camisas/camisa_(15).jpg,camisas,720,713,57ced58c3da4f6450b66e32df33d0d33007dba11,ff9981c383838501,g_57ced58c,si,,,prueba,
+cam_016,camisas/camisa_(16).jpg,camisas,1125,1464,776b0f68ab4ff18842673b92afcf5486e4f550b6,003cff7e7c7c7c00,g_776b0f68,si,,,entrenamiento,
+cam_017,camisas/camisa_(17).jpg,camisas,736,882,5c51459fc9097c6fe3464f0fb27c4bed1c87a5a0,ff138081030303f3,g_5c51459f,si,,,entrenamiento,si
+cam_018,camisas/camisa_(18).jpg,camisas,736,920,4eaaff7e7153137609abda89cd5b4fe1e9349cb8,007c7f7c7c7c7c00,g_4eaaff7e,si,,,entrenamiento,
+cam_019,camisas/camisa_(19).jpg,camisas,736,920,10878cf4d029f99efd7bb273db288212e5f7b0a9,007c7f7c7c7c4400,g_10878cf4,si,,,prueba,
+cam_020,camisas/camisa_(20).jpg,camisas,1200,1097,fa6cfbeff02148b9b7d8a272349514575f88c054,ffc381c3c3c3c3ff,g_fa6cfbef,si,,,entrenamiento,si
+cam_021,camisas/camisa_(21).jpg,camisas,1080,1433,2c36ca4fc0107e91cd3ddcb67815ad895b3a528e,ffffc181a581c3ff,g_2c36ca4f,si,,,prueba,si
+cam_022,camisas/camisa_(22).jpg,camisas,736,981,66d63ac2eb9dc97653d45092551ec527b1279157,ffe781810200ffff,g_66d63ac2,si,,,prueba,
+cam_023,camisas/camisa_(23).jpg,camisas,1200,1200,92306e886d83997eddec58aaaf1eb0a178b700f5,083c7e5e7dbc3c08,g_92306e88,si,,,entrenamiento,si
+cam_024,camisas/camisa_(24).jpg,camisas,1200,1200,c0cfa317dd3b1a6ace3fd36a82693de8edd39489,3f377e1e3c3c3c00,g_c0cfa317,si,,,entrenamiento,
+cam_025,camisas/camisa_(25).jpg,camisas,736,736,1c11620660f2adf2ac995450e22f1789c1102746,ffa98181c3c3c183,g_1c116206,si,,,entrenamiento,
+cam_026,camisas/camisa_(26).jpg,camisas,736,736,7784ca88e32740aeca18c1d6ad7fbbb1b5b31b12,ffc3c3c3c3c7dbff,g_7784ca88,si,,,entrenamiento,si
+cam_027,camisas/camisa_(27).jpg,camisas,1200,1200,6989614203d6fd11b7ce6f4e7642eb7fd6b60030,e78383c7c7c3c3c3,g_69896142,si,,,entrenamiento,
+cam_028,camisas/camisa_(28).jpg,camisas,800,1067,0c16b730a74634acf1cd2a2ba32fb314f8ccf4f2,ff830181c3c3819d,g_0c16b730,si,,,prueba,
+cam_029,camisas/camisa_(29).jpg,camisas,736,1109,099ad7243599098e1ac4c42d510740e45337b51c,00187e7e3c3c1800,g_099ad724,si,,,entrenamiento,
+cam_030,camisas/camisa_(30).jpg,camisas,1200,1200,6712f4a4a883203e3b861c1ee203e117f428c3e1,ffc181c1c3c3c3e7,g_6712f4a4,si,,,prueba,si
+cam_031,camisas/camisa_(31).jpg,camisas,736,981,00f176da3de70cbef240d2816ce809b2cd59d2d9,ffdbc3c3c3c181ff,g_00f176da,si,,,entrenamiento,
+cam_032,camisas/camisa_(32).jpg,camisas,736,920,fbf586b343645c967b556b890947bc243cadb37f,ffc381c3e3c3c3ff,g_fbf586b3,si,,,prueba,si
+cam_033,camisas/camisa_(33).jpg,camisas,576,653,30ac0a3911497072c868c46607de4e7ac2a127eb,ffc381c3c3c3c3e7,g_30ac0a39,si,,,entrenamiento,si
+cha_001,chaquetas/chaqueta _ (1).jpg,chaquetas,1200,1800,7cae8fbd390c7f333311b6a9df6308b9e5eb259a,ffff838183c3ffff,g_7cae8fbd,si,,,prueba,
+cha_002,chaquetas/chaqueta _ (10).jpg,chaquetas,915,918,d5da520050159ea36e154a4fca306400c2902ccf,ef8189040040003e,g_d5da5200,si,,,entrenamiento,si
+cha_003,chaquetas/chaqueta _ (11).jpg,chaquetas,1200,1200,cc765da2cace5190c7ebb33ba0f318e662ebf64d,ef810100808181c1,g_cc765da2,si,,,entrenamiento,si
+cha_004,chaquetas/chaqueta _ (12).jpg,chaquetas,300,300,9c0f23b7ecac5ce03660aa81895631262754207b,e7c3c3c3c7c1c1fd,g_9c0f23b7,si,,,entrenamiento,
+cha_005,chaquetas/chaqueta _ (13).jpg,chaquetas,230,300,25e42efbcc73d150096a15e4a4d775cfbee33620,e7c3c3c3c3c3c3c3,g_25e42efb,si,,baja_resolucion,entrenamiento,
+cha_006,chaquetas/chaqueta _ (14).jpg,chaquetas,200,250,165e6cf3450cab18c8c82fe99947283b7c2bc682,e781818101003c7e,g_165e6cf3,si,,baja_resolucion,entrenamiento,
+cha_007,chaquetas/chaqueta _ (15).jpg,chaquetas,226,300,efcfa6bf889d00b474cc1ce66f7a8a21559d8ff8,ffe7c3818181bdff,g_efcfa6bf,si,,baja_resolucion,entrenamiento,
+cha_008,chaquetas/chaqueta _ (16).jpg,chaquetas,225,300,1f180f16d43fa4a4790c596a6bf5fe5e2eaf03c6,ffe5bd81818181c1,g_1f180f16,si,,baja_resolucion,entrenamiento,
+cha_009,chaquetas/chaqueta _ (17).jpg,chaquetas,248,301,6ed4a1c42158666fb68faaefb8185c65c238901c,e7e7c38181424242,g_6ed4a1c4,si,,baja_resolucion,entrenamiento,si
+cha_010,chaquetas/chaqueta _ (18).jpg,chaquetas,264,300,0227f664176b0abecd350e1c8944bf64c0e87f4d,e7c38181818101c1,g_0227f664,si,,baja_resolucion,entrenamiento,
+cha_011,chaquetas/chaqueta _ (19).jpg,chaquetas,231,300,239ac766717d0ab3a8161245f4f290b711635795,e7818181818181fd,g_239ac766,si,,baja_resolucion,entrenamiento,
+cha_012,chaquetas/chaqueta _ (2).jpg,chaquetas,1038,1457,89181656294093f5686f37b1526f3c1bcac0b1f2,ffc381818100ffff,g_89181656,si,,,prueba,si
+cha_013,chaquetas/chaqueta _ (20).jpg,chaquetas,231,300,0fdf406cac78d16298bb65c0b34e4d5e10afadd4,e7818181818181fd,g_0fdf406c,si,,baja_resolucion,entrenamiento,si
+cha_014,chaquetas/chaqueta _ (21).jpg,chaquetas,200,300,9f9d5db1f2d165d3249044c855e869c145872012,ffe783818181ffff,g_9f9d5db1,si,,baja_resolucion,prueba,
+cha_015,chaquetas/chaqueta _ (22).jpg,chaquetas,231,300,e09ad3bbef354e58d22cd8b467da10a46e4a8719,e3c181818181bdfd,g_e09ad3bb,si,,baja_resolucion,entrenamiento,
+cha_016,chaquetas/chaqueta _ (23).jpg,chaquetas,228,300,b43dc3d275d25588a50d3dd201f62bd8c6c56b2a,f7a581d9c3c3c3c3,g_b43dc3d2,si,,baja_resolucion,prueba,
+cha_017,chaquetas/chaqueta _ (24).jpg,chaquetas,300,300,c81d495a963877b030e6b065856822793da41649,ffe7c3c38181ffff,g_c81d495a,si,,,prueba,
+cha_018,chaquetas/chaqueta _ (25).jpg,chaquetas,300,300,51527abf7a043bd50304c56d20146b922745e7dc,efc3c3c3a7a581ff,g_51527abf,si,,,prueba,
+cha_019,chaquetas/chaqueta _ (26).jpg,chaquetas,296,300,64a259df42bb33661fbf3f4b3b7098f3315298ad,c3c3818181800242,g_64a259df,si,,baja_resolucion,entrenamiento,si
+cha_020,chaquetas/chaqueta _ (27).jpg,chaquetas,300,300,c3c82266449e2fbe5df2ae7450b4106561da2747,e7c38381a58181bd,g_c3c82266,si,,,entrenamiento,
+cha_021,chaquetas/chaqueta _ (28).jpg,chaquetas,231,300,ef9002e904e2de686febbc98355dbd7120c1f6e8,e7818181a280c87e,g_ef9002e9,si,,baja_resolucion,entrenamiento,
+cha_022,chaquetas/chaqueta _ (29).jpg,chaquetas,257,300,db6dae4702bb8d8a9d3dcd04defc91a741de54d6,e7918181818142fb,g_db6dae47,si,,baja_resolucion,entrenamiento,
+cha_023,chaquetas/chaqueta _ (3).jpg,chaquetas,736,946,9df26719497639df595c662702292cacf045b2d2,ffffc38181003eff,g_9df26719,si,,,prueba,si
+cha_024,chaquetas/chaqueta _ (30).jpg,chaquetas,270,270,9059613f6f82093bcd9e7cd32b9f4b2eb5213317,e7c3c3e1a5a181a1,g_9059613f,si,,baja_resolucion,prueba,
+cha_025,chaquetas/chaqueta _ (31).jpg,chaquetas,300,300,62a9c9d47741b891b4da9580356bdbdeaf53c4a4,f7e3c3d3c1a5b1a1,g_62a9c9d4,si,,,entrenamiento,
+cha_026,chaquetas/chaqueta _ (32).jpg,chaquetas,300,300,c4aa05cd832721157a29b030464ef3cd9fd8b94b,ffc3c381858181ff,g_c4aa05cd,si,,,prueba,
+cha_027,chaquetas/chaqueta _ (33).jpg,chaquetas,231,300,0537b49f16e31c554656895a05f757806f4aa24b,e7e7a5918242427e,g_0537b49f,si,,baja_resolucion,entrenamiento,
+cha_028,chaquetas/chaqueta _ (34).jpg,chaquetas,274,300,76ba71f8b637ef579238c7152d165ff42cafe43f,ffc3c3c1818181e7,g_76ba71f8,si,,baja_resolucion,entrenamiento,
+cha_029,chaquetas/chaqueta _ (35).jpg,chaquetas,4096,3072,1a571c8c3fe9c69c071026006042ab69a392d7db,99afdf1d1d1d0901,,no,exclusion_manual,,,
+cha_030,chaquetas/chaqueta _ (36).jpg,chaquetas,3072,3072,418ee5e16080a2c9eb137d45d5e53f6f4e7fa611,eff7e7c3c3c30101,,no,exclusion_manual,,,
+cha_031,chaquetas/chaqueta _ (37).jpg,chaquetas,3072,3072,4a2ca6a975ace9c1d39f0aecb5ec14669cc54f73,8080838383cbcfef,,no,exclusion_manual,,,
+cha_032,chaquetas/chaqueta _ (38).jpg,chaquetas,3072,3072,ae911cd778f0e5e4f54118792cfa20345aaeb110,fbefbfbd3d3d0900,,no,exclusion_manual,,,
+cha_033,chaquetas/chaqueta _ (39).jpg,chaquetas,3072,3072,a38ad15146242ed4202c6e7b77e53f92c09343db,e88bbdbf3f3d0908,,no,exclusion_manual,,,
+cha_034,chaquetas/chaqueta _ (4).jpg,chaquetas,1024,1536,4349c577ff019bece3c5c83f5912ac5a98eb3852,ffe7818181bdffff,g_4349c577,si,,,prueba,
+cha_035,chaquetas/chaqueta _ (40).jpg,chaquetas,3072,3072,0e6c31a60891aff20e009a7f15ce3806c8ef3002,ecec76060006feee,g_0e6c31a6,si,,,prueba,
+cha_036,chaquetas/chaqueta _ (41).jpg,chaquetas,3072,3072,c1af0e6984bf3ed6a8f8c6066a07d15a5aa92f21,feeee6c242c2f6ee,g_c1af0e69,si,,,entrenamiento,
+cha_037,chaquetas/chaqueta _ (42).jpg,chaquetas,3072,3072,b848eb7913021aee97fdad9d47dc73bfd687e384,fef7c7c3c3c7f7fe,g_b848eb79,si,,,entrenamiento,
+cha_038,chaquetas/chaqueta _ (43).jpg,chaquetas,3072,3072,d7062c03d8d294a6bc6b31238a2997e2ee2f361c,eef7c3c2c2f6f6ec,,no,exclusion_manual,,,
+cha_039,chaquetas/chaqueta _ (44).jpg,chaquetas,3072,3072,070465cba8dd723e0c32a1ad73a5eea5222de86e,eef742404272e6fe,g_070465cb,si,,,entrenamiento,
+cha_040,chaquetas/chaqueta _ (45).jpg,chaquetas,4096,1842,a7600388d995c8e8d08ab27dd61f32a9e79715ec,f616062626263696,,no,exclusion_manual,,,
+cha_041,chaquetas/chaqueta _ (46).jpg,chaquetas,4096,1842,caa2cb0dfca644bb1fdd2f92829672d65f59ae6a,ffe747c7c7c7e7ef,g_caa2cb0d,si,,,entrenamiento,
+cha_042,chaquetas/chaqueta _ (47).jpg,chaquetas,4096,1842,7c7dc43cb2461d4570533460999c5f2125f220b6,b47666672767e7ff,g_7c7dc43c,si,,,entrenamiento,
+cha_043,chaquetas/chaqueta _ (48).jpg,chaquetas,4096,1842,65e51474e6e125ea441ed7470684c60ec64d5780,6c6c0c0e0e0eeeee,g_65e51474,si,,,entrenamiento,
+cha_044,chaquetas/chaqueta _ (49).jpg,chaquetas,4096,1842,538267ff7ee96a247bbe94e5bcbf9d352bf9861b,a8280e0e064eeefe,,no,exclusion_manual,,,
+cha_045,chaquetas/chaqueta _ (5).jpg,chaquetas,736,1030,4f148d41621ec3a68ce17146f4cfeeae53168e75,ffffc381813cbdff,g_4f148d41,si,,,prueba,si
+cha_046,chaquetas/chaqueta _ (50).jpg,chaquetas,1170,1442,7572792b234dc8a62084840bc9e92510523969d5,ffe7c381800081ff,g_7572792b,si,,,prueba,
+cha_047,chaquetas/chaqueta _ (51).jpg,chaquetas,1200,1799,2cfc1572318b2f8685d5743137cb86b2511a96fc,f8b0103c3efa8100,g_2cfc1572,si,,,prueba,si
+cha_048,chaquetas/chaqueta _ (52).jpg,chaquetas,1200,1607,8c065d7046338b790a448d7d304c351a768b85f4,ffffe7c38100ffef,g_8c065d70,si,,,entrenamiento,
+cha_049,chaquetas/chaqueta _ (53).jpg,chaquetas,1200,1500,d3b7818c85e60cd65aff68d7dcdbd3649a4ec3a0,ffffc381c000ffff,g_d3b7818c,si,,,prueba,
+cha_050,chaquetas/chaqueta _ (54).jpg,chaquetas,736,736,60ee8dcf4b918ed4b09fd97c07c394439719625c,fbc5dce84a3a9030,g_60ee8dcf,si,,,entrenamiento,si
+cha_051,chaquetas/chaqueta _ (55).jpg,chaquetas,1200,1600,4ff43f4d0f9bbe97945061a3ea4112726b99b307,ffe3c300000081ff,g_4ff43f4d,si,,,entrenamiento,
+cha_052,chaquetas/chaqueta _ (56).jpg,chaquetas,756,1008,d867de124a5ad53e810569436301293aa150ec17,000b4fb717c0fcc8,g_d867de12,si,,,entrenamiento,
+cha_053,chaquetas/chaqueta _ (57).jpg,chaquetas,736,980,4e34817f333e0adc6a8d8f7aa7d0df996149cf41,ffe7c347010181ff,g_4e34817f,si,,,entrenamiento,
+cha_054,chaquetas/chaqueta _ (58).jpg,chaquetas,1200,1500,4fbedb1839ced89cf118712085e58f94f691b44a,ffffc38100c0dfff,g_4fbedb18,si,,,entrenamiento,
+cha_055,chaquetas/chaqueta _ (59).jpg,chaquetas,736,970,922584ea5276e60d7ec28b2a3359ca193d794a4f,ffe79181801081df,g_922584ea,si,,,prueba,
+cha_056,chaquetas/chaqueta _ (6).jpg,chaquetas,798,914,220c55ebd5fb1909ba6d1fd147c0b1e49cae344f,e78181818181bdff,g_220c55eb,si,,,entrenamiento,
+cha_057,chaquetas/chaqueta _ (60).jpg,chaquetas,736,736,0134f6f20a249b371f8824116460da0829c6ecba,ffc3818100027eff,g_0134f6f2,si,,,entrenamiento,
+cha_058,chaquetas/chaqueta _ (61).jpg,chaquetas,736,917,451a8f6383b70026b03d7e15eb84eded955c0e09,ffffc781008181ff,g_451a8f63,si,,,entrenamiento,
+cha_059,chaquetas/chaqueta _ (62).jpg,chaquetas,736,913,8671a27acf1ba460afd89f0280be39c28a1677c1,ffe7c3818180bcff,g_8671a27a,si,,,entrenamiento,
+cha_060,chaquetas/chaqueta _ (63).jpg,chaquetas,736,981,8a29161950959a0bf12380f2abf4ce06a173cd51,ffc781818081c1ff,g_8a291619,si,,,entrenamiento,
+cha_061,chaquetas/chaqueta _ (64).jpg,chaquetas,736,981,45accaef11060923e15bcc2d74155ffd33b03e22,f7c3d3818180bcbe,g_45accaef,si,,,entrenamiento,
+cha_062,chaquetas/chaqueta _ (7).jpg,chaquetas,736,1104,703427c4da47facfc160a463efac7d62fb8e58bb,ffc38181818181ff,g_703427c4,si,,,prueba,
+cha_063,chaquetas/chaqueta _ (8).jpg,chaquetas,1000,1000,08a03c024d1c0bdd30cfc3a603eac2468249c980,ffe7c381818181ff,g_08a03c02,si,,,entrenamiento,si
+cha_064,chaquetas/chaqueta _ (9).jpg,chaquetas,800,1067,2aed22efdc7154d30dc4030a6d439ae5d0f18b8a,ffc38181000081f7,g_2aed22ef,si,,,entrenamiento,si
+pan_001,pantalones/pantalon _  (1).jpg,pantalones,3072,4096,8cea2e2de34bd4c483964de3b538f67a44bf61ae,fe6440605c18f8fc,,no,exclusion_manual,,,
+pan_002,pantalones/pantalon _  (10).jpg,pantalones,4096,1842,26bf741a09155f1d82d830800bf5c210ea4ada44,1e0e0633320a8efe,g_26bf741a,si,,,entrenamiento,
+pan_003,pantalones/pantalon _  (11).jpg,pantalones,1200,1800,8efb6db75e994627e6d7ab8ab1ea6a523fd4c015,ffc3c3c3c3c3c3ff,g_8efb6db7,si,,,prueba,
+pan_004,pantalones/pantalon _  (12).jpg,pantalones,1200,1800,e81e47cc90f159d43c8a6a6392bf72634f3bb956,ffc3c3c3c3c3c3ff,g_e81e47cc,si,,,prueba,si
+pan_005,pantalones/pantalon _  (13).jpg,pantalones,1200,1800,355234fda2d0890bb3bb5270a53645a0251560f7,ffc3c3c3838381ff,g_355234fd,si,,,entrenamiento,
+pan_006,pantalones/pantalon _  (14).jpg,pantalones,1200,1800,c5ff947d6e02526220634883638fe4352afad879,ffc7c3c3c3c3c3ff,g_c5ff947d,si,,,prueba,
+pan_007,pantalones/pantalon _  (15).jpg,pantalones,1200,1800,fcac0924c267e9d0682c6cb3a0c251d74e8b0aff,ffc7c3c3c3c3c3ff,g_fcac0924,si,,,prueba,si
+pan_008,pantalones/pantalon _  (16).jpg,pantalones,919,1665,b772510c096a0ab96453f61e346e7ffaf10f7193,ffc3c1c181818181,g_b772510c,si,,,prueba,
+pan_009,pantalones/pantalon _  (17).jpg,pantalones,736,1104,7b412f11c4df61a536d1c651b94a51dff67a0561,ffc3c3c3c1c1c3fb,g_7b412f11,si,,,entrenamiento,
+pan_010,pantalones/pantalon _  (18).jpg,pantalones,832,1200,64d9f6bb2fab31c4db65574985c271dd5c22b5e8,c3c1818181898981,g_64d9f6bb,si,,,entrenamiento,
+pan_011,pantalones/pantalon _  (19).jpg,pantalones,553,1000,c74183fe046e12189c15a537804fd84b95c43499,8381819199199999,g_c74183fe,si,,,entrenamiento,
+pan_012,pantalones/pantalon _  (2).jpg,pantalones,4096,3072,abcd64f954f0f5c36e3927f3469b695dd4e15a17,fb9b0071f1c381e7,g_abcd64f9,si,,,entrenamiento,si
+pan_013,pantalones/pantalon _  (20).jpg,pantalones,431,834,4a641b54a7485c4174348e0df43a40e51a7d3165,8781810111101010,g_4a641b54,si,,,prueba,
+pan_014,pantalones/pantalon _  (21).jpg,pantalones,736,1104,62c1d85b05ae7136f5f2eec98a7f899cd5a7e469,e7c3c3c3c3c3c3c3,g_62c1d85b,si,,,entrenamiento,
+pan_015,pantalones/pantalon _  (22).jpg,pantalones,900,1200,8877b5022dd7a83bbf2ae25b12189c3e6c959c91,e7c7c3c3c3c3c3c3,g_8877b502,si,,,entrenamiento,
+pan_016,pantalones/pantalon _  (23).jpg,pantalones,736,1179,f54eaaf1b333db9de96f706372e881f1a896260e,e7c3c3c3c3c3c3c3,g_f54eaaf1,si,,,entrenamiento,si
+pan_017,pantalones/pantalon _  (24).jpg,pantalones,736,954,37c024cd1b1e7e63c6f2fecd1726c4c5d5589c2f,e7e7c3c3c3c3c3e7,g_37c024cd,si,,,prueba,si
+pan_018,pantalones/pantalon _  (25).jpg,pantalones,803,1036,39b4bf31ef7bd6e4350c27d69745374e83a15837,e3c3c3e3e7e7e7e7,g_39b4bf31,si,,,entrenamiento,
+pan_019,pantalones/pantalon _  (26).jpg,pantalones,1200,1598,54f5ad47d9e5276a0bc24afb0807786c26d10dcc,e7c3c3c3e7e7e7e7,g_54f5ad47,si,,,entrenamiento,
+pan_020,pantalones/pantalon _  (27).jpg,pantalones,838,1200,d273c6389caeadb8137397e405a8dbf7a7bd3eda,c3c1f1c18181c1ff,g_d273c638,si,,,entrenamiento,
+pan_021,pantalones/pantalon _  (28).jpg,pantalones,736,889,bc900660608e34a7fba51691bdc848221316b820,c3c3cb8185818183,g_bc900660,si,,,entrenamiento,
+pan_022,pantalones/pantalon _  (29).jpg,pantalones,720,960,13f08affad72b864c5dc18a97779662fbad41152,ffe3df43c7430302,g_13f08aff,si,,,entrenamiento,
+pan_023,pantalones/pantalon _  (3).jpg,pantalones,4096,3072,af09ceb3226592bba93ce7e2a3729e606e411437,070fc1f981878f7f,g_af09ceb3,si,,,prueba,
+pan_024,pantalones/pantalon _  (30).jpg,pantalones,700,700,669d21d6db6389990e3d8992bf4317a01c1bb05b,e7cfc7c3c38393ff,g_669d21d6,si,,,entrenamiento,si
+pan_025,pantalones/pantalon _  (31).jpg,pantalones,747,983,03981d82c5fe63143735a3b7ebc531b45a113312,e3c1c1c1808000c1,g_03981d82,si,,,entrenamiento,
+pan_026,pantalones/pantalon _  (32).jpg,pantalones,736,1104,e02f2df6191630f7512400e33a23b76bb2695104,ffc3c3c3838199ff,g_e02f2df6,si,,,entrenamiento,si
+pan_027,pantalones/pantalon _  (33).jpg,pantalones,715,814,3ef39c6e58c2734edc63e0580189c3c9ea37dd56,ffc3c3c3c3c3c3c3,g_3ef39c6e,si,,,entrenamiento,
+pan_028,pantalones/pantalon _  (34).jpg,pantalones,1200,1600,bbab02b8acc371e64a91da10a709a30bc84a3e27,2f3f677e7e7e7e08,g_bbab02b8,si,,,entrenamiento,
+pan_029,pantalones/pantalon _  (35).jpg,pantalones,1200,1200,948e6ab991d215230afc49488e5b8faee8c443a0,e7c3c3c3c3c3c3d3,g_948e6ab9,si,,,entrenamiento,si
+pan_030,pantalones/pantalon _  (36).jpg,pantalones,736,981,c56abf8d1eb88e73800f3374cfa5f5c2765e6462,ffc3c3c189999999,g_c56abf8d,si,,,prueba,si
+pan_031,pantalones/pantalon _  (37).jpg,pantalones,736,980,a554be8422de716f2d94ed0bd1627de091b38faf,cf878393a181c0ef,g_a554be84,si,,,entrenamiento,
+pan_032,pantalones/pantalon _  (38).jpg,pantalones,1199,1496,23e86e82387494154d7f9c799015ff1e631caca3,ffc78383898889ff,g_23e86e82,si,,,entrenamiento,si
+pan_033,pantalones/pantalon _  (39).jpg,pantalones,738,984,3f63f098fb303451c0e400210f64b05660ea2699,7ae4c1c0c88d88a8,g_3f63f098,si,,,entrenamiento,
+pan_034,pantalones/pantalon _  (4).jpg,pantalones,4096,3072,c3c1e1e6412661793fb1db09035d0a5ced67f4b1,c3bf93e1f1810f00,,no,exclusion_manual,,,
+pan_035,pantalones/pantalon _  (40).jpg,pantalones,1200,1200,949275cf222c494af67a7e247472b0b6a35f1c36,3fff7a2c3c341800,g_949275cf,si,,,entrenamiento,
+pan_036,pantalones/pantalon _  (41).jpg,pantalones,736,981,a8f0565c6e790ff5683d282ff751e69f24ff2dd6,f5c38181818181ff,g_a8f0565c,si,,,entrenamiento,si
+pan_037,pantalones/pantalon _  (42).jpg,pantalones,736,1308,053e97c2715cdfd97d3d54cadd7e21b08f71741c,00ffbbedfdfbf900,g_053e97c2,si,,,prueba,
+pan_038,pantalones/pantalon _  (43).jpg,pantalones,736,920,31df2319b5d620605cad6797422338af589b48e2,ffc3c3c3c3c3c181,g_31df2319,si,,,prueba,
+pan_039,pantalones/pantalon _  (44).jpg,pantalones,1200,1680,2870e8e510466657e6b5543b8cbf8f4fd23a5d7c,ffe7c3c3c3c3c3e7,g_2870e8e5,si,,,entrenamiento,si
+pan_040,pantalones/pantalon _  (45).jpg,pantalones,736,981,3ae7801d0f7d9354d04df62bbf01cbf384e67fa9,ffe3c3c3819191ff,g_3ae7801d,si,,,entrenamiento,
+pan_041,pantalones/pantalon _  (5).jpg,pantalones,4096,3072,2437efbbfdc465ab94870b00e6780343557032aa,939f9b01e1019f01,,no,exclusion_manual,,,
+pan_042,pantalones/pantalon _  (6).jpg,pantalones,4096,3072,b03f25c220b867f61c30c60dc367326d18b7544b,83efbf878f7d0101,,no,exclusion_manual,,,
+pan_043,pantalones/pantalon _  (7).jpg,pantalones,3072,3072,3fdda2e6e1d069cf65fcaf1461e7210b907b5e39,00e4c7c3dbdbdbe3,g_3fdda2e6,si,,,entrenamiento,
+pan_044,pantalones/pantalon _  (8).jpg,pantalones,3072,3072,5d4ecd9e719128eabf08283e7a3bee23ed967e84,ff8f83f3c3879fff,g_5d4ecd9e,si,,,entrenamiento,
+pan_045,pantalones/pantalon _  (9).jpg,pantalones,1842,4096,d98ce36a8f43c7e570b2acd98cdec51f941b54f6,ffffc7831110ff87,g_d98ce36a,si,,,prueba,
