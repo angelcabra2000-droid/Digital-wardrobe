@@ -1,0 +1,14 @@
+# Fotos excluidas de la base (una ruta por linea)
+camisas/camisa_ (12).jpg
+chaquetas/chaqueta _ (35).jpg
+chaquetas/chaqueta _ (36).jpg
+chaquetas/chaqueta _ (37).jpg
+chaquetas/chaqueta _ (38).jpg
+chaquetas/chaqueta _ (39).jpg
+chaquetas/chaqueta _ (43).jpg
+chaquetas/chaqueta _ (45).jpg
+chaquetas/chaqueta _ (49).jpg
+pantalones/pantalon _  (1).jpg
+pantalones/pantalon _  (4).jpg
+pantalones/pantalon _  (5).jpg
+pantalones/pantalon _  (6).jpg

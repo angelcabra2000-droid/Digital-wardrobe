@@ -407,3 +407,24 @@ def test_cli_errores_claros(tmp_path, capsys):
     assert main(["inventario", str(raiz), "--datos", str(tmp_path / "d"), "--fraccion-prueba", "1.5"]) == 1
     assert main(["muestra", str(raiz), "--datos", str(tmp_path / "sin_inventario")]) == 1
     assert "Corre primero" in capsys.readouterr().err
+
+
+def test_segmentar_y_normalizar_omiten_las_fotos_excluidas(tmp_path):
+    import numpy as np
+    from PIL import Image
+    from closet.cli import _solo_incluidas
+    from closet.dataset import Registro, guardar_csv
+    base = tmp_path / "base" / "camisas"
+    base.mkdir(parents=True)
+    for n in ("a.png", "b.png"):
+        Image.fromarray(np.zeros((8, 8, 3), np.uint8)).save(base / n)
+    regs = [Registro(id=f"cam_00{i}", ruta=f"camisas/{n}", categoria="camisas", ancho=8, alto=8, sha1=n, ahash="0",
+                     grupo=n, incluir=(n == "a.png"), motivo="" if n == "a.png" else "exclusion_manual")
+            for i, n in enumerate(("a.png", "b.png"))]
+    datos = tmp_path / "datos"
+    datos.mkdir()
+    guardar_csv(regs, datos / "dataset.csv")
+    todas = sorted((tmp_path / "base").rglob("*.png"))
+    assert [p.name for p in _solo_incluidas(todas, tmp_path / "base", str(datos), False)] == ["a.png"]
+    assert len(_solo_incluidas(todas, tmp_path / "base", str(datos), True)) == 2
+    assert len(_solo_incluidas(todas, tmp_path / "base", str(tmp_path / "no_existe"), False)) == 2

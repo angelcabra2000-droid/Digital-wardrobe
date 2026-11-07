@@ -67,8 +67,11 @@ def guardar_imagen(img: np.ndarray, ruta: str | Path) -> None:
 
 
 def listar_imagenes(ruta: str | Path) -> list[Path]:
-    """Un archivo -> [archivo]. Una carpeta -> todas sus imágenes, incluidas las subcarpetas, ordenadas."""
+    """Un archivo -> [archivo]. Una carpeta -> todas sus imágenes, incluidas las subcarpetas, ordenadas.
+
+    Las máscaras hechas a mano (`*_gt.png`) no son fotos y se ignoran."""
     ruta = Path(ruta)
     if ruta.is_file():
         return [ruta]
-    return sorted(p for p in ruta.rglob("*") if p.is_file() and p.suffix.lower() in EXTENSIONES)
+    return sorted(p for p in ruta.rglob("*") if p.is_file() and p.suffix.lower() in EXTENSIONES
+                  and not p.stem.lower().endswith("_gt"))

@@ -10,8 +10,8 @@ procesamiento y Pillow solo para abrir y guardar archivos. K-means, los filtros,
 |---|---|---|---|
 | 0 | `dataset`, `revision` | Inventariar la base, descartar fotos, dividir entrenamiento / prueba, elegir la muestra de máscaras | ✅ listo |
 | 1 | `imagen_io`, `preprocesamiento`, `calidad` | Leer, unificar y revisar la foto | ✅ listo |
-| 2 | `segmentacion` | K-means + regiones conectadas -> máscara de la prenda | por migrar desde `segmentar_camisa_kmeans.py` |
-| 3 | `normalizacion` | Recortar, alinear y escalar la prenda | pendiente |
+| 2 | `segmentacion`, `evaluacion` | K-means + regiones conectadas -> máscara de la prenda; medición con IoU | ✅ listo (IoU 0.92 en entrenamiento) |
+| 3 | `normalizacion`, `alertas`, `pipeline` | Recortar, enderezar y escalar la prenda; alertas de recorte dudoso | ✅ listo |
 | 4 | `caracteristicas` | Color, forma y textura (Haralick) | pendiente |
 | 5 | `clasificacion` | Tipo de prenda y atributos | pendiente |
 | 6-9 | `closet_db`, `lote`, `evaluacion`, interfaz | Closet, procesamiento por lotes, métricas, app | pendiente |
@@ -27,13 +27,18 @@ Closet_Digital/
 │   ├── imagen_io.py         cargar (con orientación EXIF), guardar, listar imágenes
 │   ├── preprocesamiento.py  tamaño, balance de blancos, suavizado, contraste
 │   ├── calidad.py           nitidez, brillo, contraste -> advertencias
+│   ├── segmentacion.py      paso 2: K-means a mano + regiones -> máscara de la prenda
+│   ├── evaluacion.py        paso 2: IoU / precisión / recall contra máscaras hechas a mano
+│   ├── normalizacion.py     paso 3: recortar, enderezar y escalar la prenda a un lienzo fijo
+│   ├── alertas.py           paso 3: avisa cuando la segmentación probablemente está mal
+│   ├── pipeline.py          encadena pasos 1-3 para una foto (procesar_foto)
 │   └── cli.py               comandos: python -m closet ...
 ├── herramientas/
 │   └── anotador_mascaras.html   dibujar a mano la máscara de las fotos de la muestra
 ├── tests/                   pruebas automáticas (pytest)
 ├── datos/                   (se crea sola) dataset.csv, exclusiones.txt, revision/
 ├── Aplicacion base de datos/   tus fotos (camisas, chaquetas, pantalones)
-└── segmentar_camisa_kmeans.py  script anterior (se migrará al paso 2)
+└── segmentar_camisa_kmeans.py  script anterior (ya migrado a closet/segmentacion.py; puedes borrarlo)
 ```
 
 ## Instalación
@@ -100,6 +105,52 @@ con la original y la normalizada lado a lado) y un `calidad.csv` con las métric
 `baja_resolucion`).
 
 Opciones: `--lado-max 800`, `--sigma 1.0`, `--sin-balance`, `--sin-contraste`.
+
+## Paso 2: segmentación
+
+```
+python -m closet segmentar "ruta/foto.jpg" --salida resultados/seg       # una foto o una carpeta
+python -m closet evaluar --muestra muestra                                # IoU sobre las máscaras de ENTRENAMIENTO
+```
+`segmentar` guarda por foto `_mascara.png`, `_sin_fondo.png` (RGBA) y `_clusters.png` (qué agrupó K-means).
+`evaluar` imprime IoU / precisión / recall por foto y por categoría, marca con `<-- revisar` las que quedan bajo
+0.8 y guarda en `resultados/evaluacion/` una imagen por foto (verde = acierto, rojo = faltó, azul = sobró) y
+`evaluacion.csv`. Las máscaras de **prueba** solo se miden con `--conjunto prueba --prueba-final`, una vez, al final.
+
+Parámetros (`SegmentacionConfig`, también como opciones: `--k --textura --suavizado --nucleo --cierre --ventana
+--umbral-centro --sin-preproceso`). Para ajustar, cambia **uno** a la vez y compara el IoU total de entrenamiento.
+
+**Resultado actual (24 máscaras de entrenamiento):** IoU medio 0.922 (camisas 0.943, chaquetas 0.929,
+pantalones 0.895); 2 fotos bajo 0.8.
+
+**Limitaciones conocidas**
+- Fondo estampado del mismo color que la prenda (jean sobre tela floral): K-means separa por color y no puede.
+- La textura hace que el borde forme su propio cluster: la máscara engorda unos 3 px.
+- Prendas que casi no se distinguen del fondo, o cortadas por el marco de la foto.
+- Preprocesar o no (paso 1) queda empatado en la medición (0.922 vs 0.917): la diferencia es una sola foto.
+
+## Paso 3: normalizar la prenda
+
+```
+python -m closet normalizar "Aplicacion base de datos" --salida resultados/normalizacion
+```
+`segmentar` y `normalizar` omiten las fotos que excluiste en `datos/dataset.csv` (usa `--todas` para procesarlas igual).
+Por cada foto guarda `<nombre>_norm.png` (la prenda en un lienzo de 256 x 256, fondo transparente), y en la carpeta
+de salida `normalizacion.csv` (alertas, contraste, giro, proporción alto/ancho...) y `hoja.png`, una hoja con todas
+las prendas lado a lado para revisarlas de un vistazo (**borde rojo = con alerta**).
+
+Qué hace: calcula el eje principal de la máscara; si la prenda es claramente alargada (pantalones) e inclinada
+menos de 45°, la endereza; recorta la caja de la prenda y la escala (sin deformarla) para que ocupe el lienzo con un
+margen fijo. El color se toma de la foto original, no de la corregida. La proporción alto/ancho se guarda en
+`ratio_aspecto`, porque en un lienzo cuadrado ya no se ve.
+
+No hace (a propósito): girar más de 45° (un eje horizontal es ambiguo en camisas con mangas abiertas) ni corregir una
+prenda boca abajo.
+
+**Alertas** (`AlertasConfig`, orientativas; calibradas con solo 24 fotos): `prenda_muy_grande`, `prenda_muy_chica`,
+`prenda_parecida_fondo` (poco contraste con el fondo) y `fondo_complejo` (piso, cama o tela estampada). En entrenamiento
+saltan justo en las dos segmentaciones malas. **No atrapan todo**: un pedazo de piso pegado a una prenda de color muy
+distinto, por ejemplo, pasa sin alerta.
 
 ## Pruebas
 

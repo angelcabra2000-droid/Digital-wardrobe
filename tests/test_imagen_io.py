@@ -59,3 +59,11 @@ def test_listar_imagenes_recorre_subcarpetas_y_filtra(tmp_path):
     (tmp_path / "notas.txt").write_text("hola")
     nombres = [p.name for p in listar_imagenes(tmp_path)]
     assert sorted(nombres) == ["a.jpg", "b.PNG"]
+
+
+def test_listar_imagenes_ignora_las_mascaras_gt(tmp_path):
+    from PIL import Image as _I
+    from closet.imagen_io import listar_imagenes
+    for n in ("a.jpg", "a_gt.png", "b.png"):
+        _I.new("RGB", (4, 4)).save(tmp_path / n)
+    assert [p.name for p in listar_imagenes(tmp_path)] == ["a.jpg", "b.png"]
