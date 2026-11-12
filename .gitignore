@@ -5,3 +5,9 @@ __pycache__/
 resultados/
 muestra/
 datos/revision/
+
+# Pesos descargables y reproducibles; no subir binarios grandes a GitHub.
+datos/red_neuronal/*.onnx
+datos/red_neuronal/*.pt
+datos/red_neuronal/*.download
+datos/red_neuronal/clip/

@@ -26,10 +26,20 @@ class ResultadoPrenda:
 
 def procesar_foto(ruta, cfg_pre: PreprocesoConfig | None = None, cfg_seg: SegmentacionConfig | None = None,
                   cfg_norm: NormalizacionConfig | None = None, cfg_alertas: AlertasConfig | None = None,
-                  preprocesar: bool = True) -> ResultadoPrenda:
+                  preprocesar: bool = True, motor: str = 'clasico', region: str = 'auto') -> ResultadoPrenda:
     """Todo el recorrido de una foto. Segmenta sobre la imagen normalizada y mide el color sobre la original."""
     pre = preprocesar_imagen(cargar_imagen(ruta), cfg_pre)
-    seg = segmentar_imagen(pre.normalizada if preprocesar else pre.original, cfg_seg)
+    if motor == 'cnn':
+        from .red_neuronal import analyze
+        seg = analyze(pre.original, region)
+    elif motor == 'clasico':
+        seg = segmentar_imagen(pre.normalizada if preprocesar else pre.original, cfg_seg)
+    else:
+        raise ValueError('Motor de segmentación inválido')
+    return _finalizar_prenda(ruta, pre, seg, cfg_norm, cfg_alertas)
+
+
+def _finalizar_prenda(ruta, pre, seg, cfg_norm=None, cfg_alertas=None):
     if not seg.encontrada:
         return ResultadoPrenda(Path(ruta), pre, seg, None, ["sin_prenda"])
     alertas, metricas = revisar_segmentacion(pre.original, seg.mascara, cfg_alertas)

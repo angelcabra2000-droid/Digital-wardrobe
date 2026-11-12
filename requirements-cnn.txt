@@ -1,0 +1,6 @@
+-r requirements.txt
+# Probadas en macOS arm64 / Python 3.14. Instalar en el venv del proyecto.
+torch==2.15.0
+torchvision==0.29.2
+onnxruntime==1.31.1
+transformers==4.57.6

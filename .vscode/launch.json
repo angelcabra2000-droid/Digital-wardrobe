@@ -1,0 +1,39 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Closet: ayuda",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "closet",
+      "python": "${workspaceFolder}/venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "--help"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Closet: segmentar imagen",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "closet",
+      "python": "${workspaceFolder}/venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "segmentar",
+        "${input:imagen}",
+        "--salida",
+        "resultados/segmentacion"
+      ],
+      "console": "integratedTerminal"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "imagen",
+      "type": "promptString",
+      "description": "Ruta de la imagen o carpeta que quieres segmentar"
+    }
+  ]
+}

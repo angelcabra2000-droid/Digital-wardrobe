@@ -1,0 +1,483 @@
+import base64
+import random
+import urllib.parse
+from pathlib import Path
+
+import gradio as gr
+
+# =====================================================================
+#  CLOSET GOSSIP - interfaz estilo celular
+#  - Portada: la imagen ocupa toda la pantalla; abajo van dos cajas
+#    pequeñas y transparentes: "Cómo comenzar" y, debajo, nombre/usuario.
+#  - Demás ventanas: logo arriba, botones de pestaña redondos (icono + texto),
+#    fondo con los bordes (jean / azul marino) de la portada y varios
+#    iconos de prendas + destellos en las esquinas.
+#  - Perfil: la foto se muestra redonda, como en Instagram.
+#  - La app NO le pide el tipo de prenda: lo identifica la función
+#    `identificar_prenda`, que tu compañero reemplaza con su código.
+#
+#  IMPORTANTE: la carpeta "imagenes" debe estar junto a este archivo.
+#  La tipografía (Cormorant Garamond) se descarga de Google Fonts; si no
+#  hay internet se usa Georgia automáticamente.
+# =====================================================================
+
+CARPETA_IMAGENES = Path(__file__).parent / "imagenes"
+
+TIPOS = ["Chaqueta", "Pantalón", "Camisa"]
+FILTROS = ["Todas", "Chaquetas", "Pantalones", "Camisas"]
+PLURAL = {"Chaqueta": "Chaquetas", "Pantalón": "Pantalones", "Camisa": "Camisas"}
+
+closet = []  # cada prenda: {"imagen": ruta, "tipo": str, "color": str}
+
+
+def imagen_uri(nombre):
+    """Convierte una imagen de la carpeta 'imagenes' en data-URI para usarla en HTML/CSS."""
+    ruta = CARPETA_IMAGENES / nombre
+    if not ruta.exists():
+        return ""
+    mime = "image/jpeg" if ruta.suffix.lower() in (".jpg", ".jpeg") else "image/png"
+    datos = base64.b64encode(ruta.read_bytes()).decode()
+    return f"data:{mime};base64,{datos}"
+
+
+# Destello (✦) azul marino como imagen vectorial
+_SVG_DESTELLO = (
+    "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>"
+    "<path d='M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z' fill='#14284f'/></svg>"
+)
+DESTELLO = "data:image/svg+xml;utf8," + urllib.parse.quote(_SVG_DESTELLO)
+
+IMG = {
+    "portada": imagen_uri("portada.jpg"),
+    "denim": imagen_uri("borde_denim.png"),
+    "azul-izq": imagen_uri("borde_azul_izq.png"),
+    "azul-der": imagen_uri("borde_azul_der.png"),
+    "ic-escanear": imagen_uri("ic_escanear.png"),            # cámara
+    "ic-escanear-claro": imagen_uri("ic_escanear_claro.png"),
+    "ic-closet": imagen_uri("ic_closet.png"),                # gancho
+    "ic-closet-claro": imagen_uri("ic_closet_claro.png"),
+    "ic-perfil": imagen_uri("ic_perfil.png"),                # chica
+    "ic-perfil-claro": imagen_uri("ic_perfil_claro.png"),
+    "camisa": imagen_uri("esquina_camisa.png"),
+    "percha": imagen_uri("esquina_percha.png"),
+    "bolso": imagen_uri("esquina_bolso.png"),
+    "pantalon": imagen_uri("esquina_pantalon.png"),
+    "zapato": imagen_uri("esquina_zapato.png"),
+    "destello": DESTELLO,
+}
+LOGO = imagen_uri("logo.png")
+
+
+# ---------------------------------------------------------------------
+#  >>> AQUÍ ENTRA EL CÓDIGO DE TU COMPAÑERO <<<
+#  Recibe la ruta de la imagen y debe devolver (tipo, color).
+#  Ahora mismo es un PLACEHOLDER que elige el tipo al azar.
+# ---------------------------------------------------------------------
+def identificar_prenda(ruta_imagen):
+    tipo = random.choice(TIPOS)
+    color = "Por detectar"
+    return tipo, color
+
+
+# ---------------------------------------------------------------------
+#  Inicio de sesión
+# ---------------------------------------------------------------------
+def nombre_header(nombre, usuario):
+    nombre = nombre or "Tu nombre"
+    usuario = usuario or "@usuario"
+    return f"<div class='nombre'>{nombre} ✦<br><small>{usuario}</small></div>"
+
+
+def iniciar_sesion(nombre, usuario):
+    nombre = (nombre or "").strip()
+    usuario = (usuario or "").strip().lstrip("@")
+    if not nombre or not usuario:
+        return (
+            gr.update(), gr.update(),
+            "<div class='aviso'>⚠️ Escribe tu nombre y tu usuario.</div>",
+            gr.update(), gr.update(), gr.update(),
+        )
+    usuario = "@" + usuario.replace(" ", "_").lower()
+    return (
+        gr.update(visible=False),   # oculta la portada
+        gr.update(visible=True),    # muestra la app
+        "",
+        nombre_header(nombre, usuario),
+        nombre,
+        usuario,
+    )
+
+
+def cerrar_sesion():
+    return gr.update(visible=True), gr.update(visible=False)
+
+
+# ---------------------------------------------------------------------
+#  Navegación (botones con las imágenes de las pestañas)
+# ---------------------------------------------------------------------
+IDS_PESTANAS = ["escanear", "closet", "perfil"]
+
+
+def ir_a(destino):
+    return (gr.update(selected=destino),) + tuple(
+        gr.update(variant="primary" if i == destino else "secondary") for i in IDS_PESTANAS
+    )
+
+
+# ---------------------------------------------------------------------
+#  Funciones de la app
+# ---------------------------------------------------------------------
+def escanear(imagen):
+    if imagen is None:
+        return "<div class='aviso'>📷 Toma o sube una foto primero.</div>", None
+    tipo, color = identificar_prenda(imagen)
+    tarjeta = f"""
+    <div class='tarjeta'>
+      <div class='check'>✓</div>
+      <h3>{tipo}</h3>
+      <p>Color: {color}</p>
+    </div>"""
+    return tarjeta, {"imagen": imagen, "tipo": tipo, "color": color}
+
+
+def ver_closet(filtro):
+    items = []
+    for p in closet:
+        if filtro == "Todas" or PLURAL[p["tipo"]] == filtro:
+            items.append((p["imagen"], f'{p["tipo"]} · {p["color"]}'))
+    return items
+
+
+def stats_html():
+    n = len(closet)
+    c = sum(1 for p in closet if p["tipo"] == "Chaqueta")
+    pa = sum(1 for p in closet if p["tipo"] == "Pantalón")
+    ca = sum(1 for p in closet if p["tipo"] == "Camisa")
+    return f"""
+    <div class='stats'>
+      <div><b>{n}</b><span>Prendas</span></div>
+      <div><b>{c}</b><span>Chaquetas</span></div>
+      <div><b>{pa}</b><span>Pantalones</span></div>
+      <div><b>{ca}</b><span>Camisas</span></div>
+    </div>"""
+
+
+def guardar(detectada):
+    if detectada is None:
+        return "⚠️ Primero escanea una prenda.", ver_closet("Todas"), stats_html()
+    closet.append(detectada)
+    return (
+        f"✅ {detectada['tipo']} guardada en tu closet.",
+        ver_closet("Todas"),
+        stats_html(),
+    )
+
+
+# ---------------------------------------------------------------------
+#  Estilos (se inyectan como HTML para que funcione en cualquier versión)
+# ---------------------------------------------------------------------
+def _capas(clase, capas):
+    """Genera el CSS de un fondo con varias imágenes: [(nombre, posición, tamaño), ...]"""
+    imgs = ", ".join(f"var(--img-{n})" for n, _, _ in capas)
+    pos = ", ".join(p for _, p, _ in capas)
+    tam = ", ".join(t for _, _, t in capas)
+    return (
+        f".{clase} {{ background-image: {imgs} !important; "
+        f"background-position: {pos} !important; background-size: {tam} !important; "
+        f"background-repeat: no-repeat !important; }}"
+    )
+
+
+_DEST = [
+    ("destello", "right 16px top 10px", "16px auto"),
+    ("destello", "left 8px top 42%", "10px auto"),
+    ("destello", "left 47% bottom 16px", "12px auto"),
+]
+
+CSS_ESQUINAS = "\n".join([
+    _capas("esq-escanear", [
+        ("camisa", "right 10px bottom 8px", "64px auto"),
+        ("pantalon", "left 10px bottom 18px", "96px auto"),
+    ] + _DEST),
+    _capas("esq-closet", [
+        ("percha", "left 10px bottom 8px", "86px auto"),
+        ("zapato", "right 10px bottom 14px", "98px auto"),
+    ] + _DEST),
+    _capas("esq-perfil", [
+        ("bolso", "right 10px bottom 8px", "98px auto"),
+        ("camisa", "left 14px bottom 10px", "54px auto"),
+    ] + _DEST),
+])
+
+_CIRC = "radial-gradient(circle at 50% 50%, {fill} 0 24px, #14284f 24px 26px, #ffffff 26px 29px, rgba(20,40,80,.22) 29px, rgba(20,40,80,0) 35px)"
+CSS_NAV = "\n".join(
+    f".gradio-container .nav-btn.nav-btn.nav-{n} {{ background-image: var(--img-ic-{n}), {_CIRC.format(fill='#f7f3ee')} !important; }}\n"
+    f".gradio-container .nav-btn.nav-btn.nav-{n}.primary {{ background-image: var(--img-ic-{n}-claro), {_CIRC.format(fill='#14284f')} !important; }}"
+    for n in ("escanear", "closet", "perfil")
+)
+
+CSS_VARS = ":root {\n" + "\n".join(
+    f'  --img-{k}: url("{v}");' for k, v in IMG.items() if v
+) + "\n}"
+
+CSS = """
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+
+__VARS__
+
+/* ---------- TIPOGRAFÍA (serif elegante, como las imágenes) ---------- */
+.gradio-container, .gradio-container *:not(svg):not(path) {
+  font-family: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif !important;
+}
+.gradio-container { font-size: 17px; font-weight: 600; letter-spacing: .01em; }
+.gradio-container label span, .gradio-container .label-wrap span { font-weight: 700 !important; font-size: 1.05rem !important; color: #14284f !important; }
+.gradio-container input, .gradio-container textarea { font-size: 1.1rem !important; font-weight: 600 !important; }
+
+.gradio-container {
+  max-width: 430px !important; margin: 0 auto !important;
+  background: #eceff3 !important; border-radius: 28px;
+}
+body { background: #cfd8e6 !important; }
+footer { display: none !important; }
+
+/* ---------- PORTADA: la imagen se ve completa; dos cajas pequeñas y transparentes abajo ---------- */
+.portada {
+  background-image: var(--img-portada) !important;
+  background-size: cover !important; background-position: center top !important;
+  background-repeat: no-repeat !important; background-color: #dfe3e8 !important;
+  min-height: 765px; padding: 0 !important; gap: 0 !important;
+  border-radius: 28px; overflow: hidden;
+  display: flex !important; flex-direction: column !important; justify-content: flex-end !important;
+}
+/* las cajas NO se estiran: solo ocupan lo que necesita su contenido */
+.portada > * {
+  flex: 0 0 auto !important; flex-grow: 0 !important; height: auto !important;
+  min-height: 0 !important; min-width: 0 !important; width: auto !important;
+}
+.portada-form, .portada-como {
+  background: rgba(247, 243, 238, .42) !important;
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, .7) !important;
+  box-shadow: 0 4px 14px rgba(10, 25, 55, .18) !important;
+  gap: 0 !important;
+}
+.portada-form .block, .portada-form .form, .portada-form .html-container,
+.portada-como .block, .portada-como .html-container {
+  background: transparent !important; border: none !important; box-shadow: none !important;
+  padding: 0 !important; min-height: 0 !important;
+}
+/* caja de arriba: cómo comenzar (corta) */
+.portada-como { margin: 0 24px 8px !important; padding: 6px 12px 7px !important; border-radius: 14px !important; }
+.como-comenzar { color: #14284f; text-align: center; line-height: 1.05; }
+.como-comenzar .titulo { font-size: 1.05rem; font-weight: 700; margin-bottom: 3px; }
+.pasos { display: flex; gap: 6px; }
+.pasos span { flex: 1; font-size: .8rem; font-weight: 600; }
+.pasos b { color: #1b3a6b; font-size: 1rem; margin-right: 3px; }
+/* caja de abajo: nombre, usuario y botón en una sola fila */
+.portada-form { margin: 0 24px 18px !important; padding: 8px 10px !important; border-radius: 16px !important; }
+.portada-form .row { gap: 6px !important; flex-wrap: nowrap !important; align-items: center !important; }
+.portada-form input, .portada-form textarea {
+  background: rgba(255, 255, 255, .8) !important; border: 1px solid rgba(20, 40, 80, .25) !important;
+  border-radius: 10px !important; color: #14284f !important; padding: 6px 10px !important; font-size: 1rem !important;
+}
+.portada-form button { min-height: 0 !important; min-width: 0 !important; padding: 7px 14px !important; flex: 0 0 auto !important; }
+.portada-form .aviso { margin-top: 6px; padding: 5px; font-size: .9rem; }
+
+/* ---------- APP PRINCIPAL: fondo con los bordes de la portada ---------- */
+.fondo {
+  background-color: #eceff3 !important;
+  background-image: var(--img-denim), var(--img-azul-izq), var(--img-azul-der) !important;
+  background-repeat: no-repeat !important;
+  background-position: right top, left 70px, right bottom !important;
+  background-size: 150px auto, 34px auto, 74px auto !important;
+  border-radius: 28px; overflow: hidden; padding-bottom: 22px !important;
+}
+.fondo div.block { background: transparent !important; border-color: transparent !important; box-shadow: none !important; }
+.fondo input, .fondo textarea {
+  background: rgba(255, 255, 255, .78) !important; border: 1px solid rgba(20, 40, 80, .22) !important;
+  border-radius: 14px !important; color: #14284f !important;
+}
+
+/* ---------- LOGO ---------- */
+.logo { text-align: center; padding: 18px 0 6px; position: relative; z-index: 2; }
+.logo img { width: 46%; max-width: 190px; height: auto; display: inline-block; }
+
+/* ---------- BOTONES DE PESTAÑA: círculo con icono + texto escrito ---------- */
+.nav-row { gap: 4px !important; padding: 2px 16px 10px !important; position: relative; z-index: 2; flex-wrap: nowrap !important; }
+.gradio-container .nav-btn.nav-btn {
+  height: 100px !important; min-width: 0 !important; width: 100% !important;
+  padding: 78px 0 0 !important; border: none !important; border-radius: 12px !important;
+  background-color: transparent !important; background-repeat: no-repeat !important;
+  background-size: auto 26px, 100% 72px !important;
+  background-position: center 23px, center 0 !important;
+  box-shadow: none !important; color: #5f7390 !important;
+  font-size: 1.15rem !important; font-weight: 700 !important; line-height: 1.1 !important;
+  transition: transform .15s;
+}
+.gradio-container .nav-btn.nav-btn.primary { color: #14284f !important; transform: translateY(-1px); }
+__NAV__
+
+/* se ocultan las pestañas de texto de Gradio (la navegación son los botones) */
+.fondo .tab-nav, .fondo .tab-wrapper, .fondo [role="tablist"] { display: none !important; }
+.fondo .tabs, .fondo .tabitem { border: none !important; background: transparent !important; }
+
+/* ---------- ICONOS EN LAS ESQUINAS DE CADA PESTAÑA ---------- */
+.esquina { padding: 6px 14px 130px !important; position: relative; }
+__ESQUINAS__
+
+/* ---------- FOTO DE PERFIL REDONDA ---------- */
+#avatar-foto {
+  width: 170px !important; min-width: 170px !important; max-width: 170px !important;
+  height: 170px !important; flex: none !important; align-self: center !important;
+  margin: 6px auto 0 !important; padding: 0 !important;
+  border-radius: 50% !important; overflow: hidden !important;
+  border: 3px solid #14284f !important; background: #f7f3ee !important;
+  box-shadow: 0 6px 16px rgba(20, 40, 80, .28) !important;
+}
+#avatar-foto img { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 50% !important; }
+#avatar-foto .image-container, #avatar-foto .image-frame, #avatar-foto [data-testid="image"],
+#avatar-foto .upload-container { width: 100% !important; height: 100% !important; }
+.hint-foto { text-align: center; color: #5f7390; font-size: .95rem; margin-top: -4px; }
+
+/* ---------- BOTONES, TARJETAS, ETC ---------- */
+button.primary, button.lg.primary {
+  background: #1b3a6b !important; border: none !important;
+  color: #fff !important; border-radius: 999px !important; font-weight: 700 !important; font-size: 1.1rem !important;
+}
+button.secondary { border-radius: 999px !important; }
+
+.tarjeta {
+  position: relative; background: #f7f3ee; border-radius: 20px;
+  text-align: center; padding: 18px; box-shadow: 0 4px 14px rgba(20, 40, 80, .14);
+}
+.tarjeta h3 { margin: 6px 0 0; font-size: 1.6rem; color: #14284f; }
+.tarjeta p { margin: 2px 0 0; color: #5f7390; font-size: 1.1rem; }
+.check {
+  position: absolute; top: 10px; right: 12px; width: 28px; height: 28px;
+  border-radius: 50%; background: #3fbf6b; color: #fff; line-height: 28px;
+  font-weight: bold;
+}
+.aviso { background: #f7f3ee; border-radius: 16px; padding: 14px; text-align: center; color: #14284f; }
+.stats {
+  display: flex; justify-content: space-around; background: #f7f3ee;
+  border-radius: 18px; padding: 12px 6px; box-shadow: 0 4px 14px rgba(20, 40, 80, .12);
+}
+.stats div { display: flex; flex-direction: column; align-items: center; }
+.stats b { font-size: 1.6rem; color: #1b3a6b; }
+.stats span { font-size: .9rem; color: #5f7390; }
+.nombre { text-align: center; font-size: 1.8rem; font-weight: 700; color: #14284f; }
+.nombre small { font-weight: 500; color: #5f7390; font-size: 1.1rem; }
+</style>
+""".replace("__VARS__", CSS_VARS).replace("__ESQUINAS__", CSS_ESQUINAS).replace("__NAV__", CSS_NAV)
+
+LOGO_HTML = f"<div class='logo'><img src='{LOGO}' alt='Closet Gossip'></div>"
+COMO_COMENZAR_HTML = """
+<div class='como-comenzar'>
+  <div class='titulo'>✦ Cómo comenzar</div>
+  <div class='pasos'>
+    <span><b>1</b>Escribe tu nombre</span>
+    <span><b>2</b>Escanea tus prendas</span>
+    <span><b>3</b>Guarda tu closet</span>
+  </div>
+</div>
+"""
+
+# ---------------------------------------------------------------------
+#  Interfaz
+# ---------------------------------------------------------------------
+with gr.Blocks(title="Closet Gossip") as demo:
+    gr.HTML(CSS)
+
+    # ============================ PORTADA ============================
+    # La imagen es el fondo; abajo van dos cajas pequeñas y transparentes
+    with gr.Column(visible=True, elem_classes=["portada"]) as portada:
+        with gr.Column(elem_classes=["portada-como"]):          # arriba: cómo comenzar
+            gr.HTML(COMO_COMENZAR_HTML)
+        with gr.Column(elem_classes=["portada-form"]):          # abajo: nombre y usuario
+            with gr.Row():
+                in_nombre = gr.Textbox(show_label=False, container=False, min_width=0,
+                                       placeholder="Tu nombre")
+                in_usuario = gr.Textbox(show_label=False, container=False, min_width=0,
+                                        placeholder="Usuario")
+                btn_entrar = gr.Button("Entrar →", variant="primary", min_width=0, scale=0)
+            aviso_login = gr.HTML()
+
+    # ========================= APP PRINCIPAL =========================
+    with gr.Column(visible=False, elem_classes=["fondo"]) as app_principal:
+        gr.HTML(LOGO_HTML)   # logo arriba de las pestañas
+
+        prenda_detectada = gr.State(None)
+
+        # botones de pestaña: círculo con icono (cámara / gancho / chica) + texto
+        with gr.Row(elem_classes=["nav-row"]):
+            nav_escanear = gr.Button("Escanear", variant="primary", min_width=0,
+                                     elem_classes=["nav-btn", "nav-escanear"])
+            nav_closet = gr.Button("Mi clóset", variant="secondary", min_width=0,
+                                   elem_classes=["nav-btn", "nav-closet"])
+            nav_perfil = gr.Button("Perfil", variant="secondary", min_width=0,
+                                   elem_classes=["nav-btn", "nav-perfil"])
+
+        with gr.Tabs(selected="escanear") as pestanas:
+            # ---------------- ESCANEAR ----------------
+            with gr.Tab("Escanear", id="escanear"):
+                with gr.Column(elem_classes=["esquina", "esq-escanear"]):
+                    gr.Markdown("Apunta tu prenda y deja que la app la reconozca ✦")
+                    foto = gr.Image(
+                        label="Foto de la prenda",
+                        sources=["webcam", "upload"],
+                        type="filepath",
+                        height=300,
+                    )
+                    btn_escanear = gr.Button("Escanear prenda", variant="primary")
+                    resultado = gr.HTML()
+                    btn_guardar = gr.Button("Guardar en mi closet", variant="primary")
+                    estado = gr.Markdown()
+
+            # ---------------- MI CLOSET ----------------
+            with gr.Tab("Mi clóset", id="closet"):
+                with gr.Column(elem_classes=["esquina", "esq-closet"]):
+                    filtro = gr.Radio(FILTROS, value="Todas", label="Mi Closet ✦")
+                    galeria = gr.Gallery(columns=2, height="auto", show_label=False)
+
+            # ---------------- PERFIL ----------------
+            with gr.Tab("Perfil", id="perfil"):
+                with gr.Column(elem_classes=["esquina", "esq-perfil"]):
+                    # la foto se recorta en círculo (CSS #avatar-foto)
+                    avatar = gr.Image(
+                        show_label=False,
+                        container=False,
+                        sources=["upload", "webcam"],
+                        type="filepath",
+                        width=170,
+                        height=170,
+                        elem_id="avatar-foto",
+                    )
+                    gr.HTML("<div class='hint-foto'>Toca el círculo para subir tu foto</div>")
+                    header = gr.HTML(nombre_header("", ""))
+                    nombre = gr.Textbox(label="Nombre")
+                    usuario = gr.Textbox(label="Usuario")
+                    stats = gr.HTML(stats_html())
+                    btn_salir = gr.Button("Cerrar sesión", variant="secondary")
+
+    # ========================= Conexiones ============================
+    btn_entrar.click(
+        iniciar_sesion,
+        [in_nombre, in_usuario],
+        [portada, app_principal, aviso_login, header, nombre, usuario],
+    )
+    btn_salir.click(cerrar_sesion, None, [portada, app_principal])
+
+    # navegación con los botones-imagen
+    _nav_out = [pestanas, nav_escanear, nav_closet, nav_perfil]
+    nav_escanear.click(lambda: ir_a("escanear"), None, _nav_out)
+    nav_closet.click(lambda: ir_a("closet"), None, _nav_out)
+    nav_perfil.click(lambda: ir_a("perfil"), None, _nav_out)
+
+    btn_escanear.click(escanear, foto, [resultado, prenda_detectada])
+    btn_guardar.click(guardar, prenda_detectada, [estado, galeria, stats])
+    filtro.change(ver_closet, filtro, galeria)
+    nombre.change(nombre_header, [nombre, usuario], header)
+    usuario.change(nombre_header, [nombre, usuario], header)
+
+demo.launch()
