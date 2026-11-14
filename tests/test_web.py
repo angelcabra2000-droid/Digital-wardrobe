@@ -51,7 +51,11 @@ def request(url, payload=None, origin=None):
 def test_home_and_samples(server):
     base, _ = server
     code, page = request(base + '/')
-    assert code == 200 and b'Segmentar prenda' in page
+    assert code == 200
+    assert 'Guardar prenda en tu clóset'.encode() in page
+    assert 'Combinar con prenda de tu clóset'.encode() in page
+    assert 'Ajustes del análisis'.encode() not in page
+    assert b'Segmentar prenda' not in page
     code, data = request(base + '/api/samples')
     assert code == 200 and json.loads(data)[0]['name'] == 'foto.png'
     code, thumb = request(base + '/sample/0')
