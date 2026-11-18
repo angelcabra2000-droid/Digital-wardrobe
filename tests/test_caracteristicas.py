@@ -56,7 +56,18 @@ def test_dos_colores_distintos_se_cuentan_y_el_dominante_es_el_mas_grande():
     rgb[:, 40:] = (20, 20, 20)
     c = caracteristicas_color(rgb, np.ones((60, 60), bool))
     assert c["n_colores"] == 2 and c["color_nombre"] == "blanco" and c["color2_nombre"] == "negro"
+    assert c["n_colores_cromaticos"] == 2
     assert c["color_frac"] == pytest.approx(2 / 3, abs=0.02)
+
+
+def test_composicion_cromatica_agrupa_las_sombras_y_distingue_tonos():
+    rgb = np.full((60, 60, 3), (134, 110, 59), np.uint8)
+    rgb[:, 30:] = (76, 59, 27)
+    mask = np.ones(rgb.shape[:2], bool)
+    colors = caracteristicas_color(rgb, mask)
+    assert colors['n_colores'] == 2 and colors['n_colores_cromaticos'] == 1
+    rgb[:, 30:] = (30, 60, 150)
+    assert caracteristicas_color(rgb, mask)['n_colores_cromaticos'] == 2
 
 
 def test_color_con_menos_colores_que_k_no_falla():

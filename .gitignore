@@ -11,3 +11,7 @@ datos/red_neuronal/*.onnx
 datos/red_neuronal/*.pt
 datos/red_neuronal/*.download
 datos/red_neuronal/clip/
+
+.venv/
+*.pyo
+BasedeDatos/

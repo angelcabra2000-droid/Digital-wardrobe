@@ -75,10 +75,44 @@ def test_missing_resources_and_path_traversal(server):
         assert request(base + path)[0] == 404
 
 
+def test_hybrid_and_learning_are_scoped_to_profile(server, monkeypatch):
+    base, _ = server
+    monkeypatch.setattr(web.red_neuronal, 'segmentation_ready', lambda:True)
+    monkeypatch.setattr(web.red_neuronal, 'clothing_labels', lambda rgb:(rgb[..., 0] < 100).astype(np.uint8))
+
+    def analyze(owner):
+        code, body = request(base + '/api/segment', {'sample':0, 'engine':'auto', 'owner':owner})
+        assert code == 202
+        job_id = json.loads(body)['id']
+        deadline = time.monotonic() + 15
+        while time.monotonic() < deadline:
+            data = json.loads(request(base + '/api/jobs/' + job_id)[1])
+            if data['status'] in ('done', 'error'):
+                assert data['status'] == 'done', data
+                return data
+            time.sleep(.1)
+        pytest.fail('El análisis no terminó a tiempo')
+
+    owner = 'a' * 32
+    initial = analyze(owner)
+    assert initial['engine'] == 'hibrido'
+    assert {'mascara_kmeans', 'mascara_u2net', 'mascara'} <= initial['images'].keys()
+    assert initial['found'] and not initial['alerts']
+    category = 'camisas' if initial['classification']['category'] != 'camisas' else 'pantalones'
+    subtype = web.SUBTYPES[category][0]
+    code, body = request(base + '/api/wardrobe/save', {
+        'job_id':initial['id'], 'owner':owner, 'category':category, 'subtype':subtype,
+    })
+    assert code == 201 and json.loads(body)['correction_learned']
+    learned = analyze(owner)['classification']
+    assert learned['personalized'] and (learned['category'], learned['subtype']) == (category, subtype)
+    assert not analyze('b' * 32)['classification'].get('personalized')
+
+
 @pytest.mark.parametrize('upload', [False, True])
 def test_processing_downloads_and_history(server, upload):
     base, photo = server
-    payload = {'k':4, 'size':400}
+    payload = {'k':4, 'size':400, 'rotation':90}
     if upload:
         payload.update(image=base64.b64encode(photo.read_bytes()).decode(), name='subida.png')
     else:
@@ -95,6 +129,7 @@ def test_processing_downloads_and_history(server, upload):
         time.sleep(.1)
     assert result['status'] == 'done', result
     assert result['found'] and result['coverage'] > 0
+    assert result['preprocessing']['steps']['rotacion_manual_grados'] == 90
     assert 'color_nombre' in result['features']
     for name, path in result['images'].items():
         code, data = request(base + path)
@@ -106,18 +141,33 @@ def test_processing_downloads_and_history(server, upload):
     code, data = request(base + '/media/' + job_id + '/resultados.zip')
     assert code == 200
     with zipfile.ZipFile(io.BytesIO(data)) as z:
-        assert {'resultado.json', 'mascara.png', 'sin_fondo.png', 'normalizada.png'} <= set(z.namelist())
+        assert {'resultado.json', 'mascara.png', 'sin_fondo.png', 'normalizada.png', 'histograma.png'} <= set(z.namelist())
         assert z.testzip() is None
     assert json.loads(request(base + '/api/jobs')[1])[0]['id'] == job_id
     assert 'pattern' in result['attributes'] and 'classification' in result
-    saved_payload={'owner':'a'*32,'job_id':job_id,'name':'Mi prenda','category':'camisas'}
+    saved_payload={'owner':'a'*32,'job_id':job_id,'name':'Mi prenda','category':'camisas','subtype':'Camiseta','color':'azul'}
     code, body=request(base+'/api/wardrobe/save',saved_payload)
     assert code==201 and json.loads(body)['category']=='camisas'
+    assert json.loads(body)['subtype']=='Camiseta'
+    assert json.loads(body)['attributes']['color_family']=='azul'
+    garment_id = json.loads(body)['id']
+    edit = {'owner':'a'*32, 'id':garment_id, 'color':'rosa'}
+    assert request(base+'/api/wardrobe/color',{**edit,'owner':'b'*32})[0]==404
+    assert request(base+'/api/wardrobe/color',{**edit,'color':'inexistente'})[0]==400
+    assert request(base+'/api/wardrobe/color',edit)[0]==200
+    rows=json.loads(request(base+'/api/wardrobe?owner='+'a'*32)[1])
+    assert rows[0]['attributes']['color_family']=='rosa'
     saved_payload['category']='chaquetas'
+    assert request(base+'/api/wardrobe/save',saved_payload)[0]==400
+    saved_payload['subtype']=''
     assert request(base+'/api/wardrobe/save',saved_payload)[0]==201
     rows=json.loads(request(base+'/api/wardrobe?owner='+'a'*32)[1])
     assert len(rows)==1 and rows[0]['category']=='chaquetas'
     assert json.loads(request(base+'/api/wardrobe?owner='+'b'*32)[1])==[]
+    saved_payload['category']=''
+    code, body=request(base+'/api/wardrobe/save',saved_payload)
+    assert code==201 and json.loads(body)['category']==''
+    assert json.loads(body)['category_confirmed'] is False
 
 
 def test_existing_catalog_and_exclusions(server, monkeypatch):

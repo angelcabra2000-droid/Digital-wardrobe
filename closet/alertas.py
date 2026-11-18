@@ -17,6 +17,16 @@ from .config import AlertasConfig
 from .segmentacion import dilatar_octogono, rgb_a_lab
 
 
+def fondo_impide_segmentar(alertas):
+    """Bloquea recortes con indicios de fondo adherido o prenda incompleta."""
+    deficient = 'prenda_parecida_fondo' in alertas
+    return (('fondo_complejo' in alertas and
+             (deficient or 'prenda_muy_grande' in alertas or 'prenda_muy_chica' in alertas))
+            or ('borde_extenso' in alertas and deficient)
+            or 'fondo_irregular_en_borde' in alertas
+            or 'varios_bordes' in alertas)
+
+
 def revisar_segmentacion(original: np.ndarray, mascara: np.ndarray,
                          cfg: AlertasConfig | None = None) -> tuple[list[str], dict]:
     """Devuelve (lista de alertas, métricas usadas). `original` es la imagen sin corregir, del tamaño de la máscara."""
@@ -26,6 +36,15 @@ def revisar_segmentacion(original: np.ndarray, mascara: np.ndarray,
     area = float(mascara.mean())
     metricas = {"area": round(area, 4), "contraste": None, "fondo_sigma": None}
     alertas = []
+    border = {name: round(float(edge.mean()), 3) for name, edge in
+              zip(('superior', 'inferior', 'izquierdo', 'derecho'),
+                  (mascara[0], mascara[-1], mascara[:, 0], mascara[:, -1]))}
+    metricas['contacto_bordes'] = border
+    contacts = sum(value >= .18 for value in border.values())
+    if contacts >= 2:
+        alertas.append("varios_bordes")
+    elif contacts:
+        alertas.append("borde_extenso")
     if area > cfg.area_max:
         alertas.append("prenda_muy_grande")
     if area < cfg.area_min:
@@ -43,4 +62,6 @@ def revisar_segmentacion(original: np.ndarray, mascara: np.ndarray,
             alertas.append("prenda_parecida_fondo")
         if sigma > cfg.fondo_sigma_max:
             alertas.append("fondo_complejo")
+        if contacts == 1 and sigma >= .8 * cfg.fondo_sigma_max:
+            alertas.append("fondo_irregular_en_borde")
     return alertas, metricas

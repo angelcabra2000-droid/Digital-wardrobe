@@ -13,6 +13,29 @@ def test_neighbors_use_features():
     assert c.nearest({},[])['category'] is None
 
 
+def test_knn_leaves_category_empty_for_distant_or_divided_neighbors():
+    records = [{'id': name, 'category': name, 'features': {'ratio_aspecto': ratio}}
+               for name, ratio in [('camisas', 1), ('chaquetas', 2)]]
+    distant = c.nearest({'ratio_aspecto': 10}, records, k=1, blocks=(0,), max_distance=.8)
+    assert distant['category'] is None and distant['review']
+    divided = c.nearest({'ratio_aspecto': 1.5}, records, k=2, blocks=(0,), max_distance=.8)
+    assert divided['category'] is None and divided['support'] == .5
+
+
+def test_silhouette_distinguishes_straps_from_pant_legs():
+    mask = np.zeros((120, 100), dtype=bool)
+    mask[:32, 15:23] = True
+    mask[:32, 76:84] = True
+    mask[30:, 6:94] = True
+    knn = {'category':'pantalones'}
+    refined = c.refine_silhouette(knn, mask)
+    assert (refined['category'], refined['subtype']) == ('camisas', 'Esqueleto')
+    assert c.refine_silhouette(knn, mask[::-1]) == knn
+    sleeves = mask.copy()
+    sleeves[:32, 10:90] = True
+    assert c.refine_silhouette(knn, sleeves) == knn
+
+
 def test_classification_excludes_query_group(tmp_path,monkeypatch):
     model=tmp_path/'model.json'
     model.write_text(json.dumps({'records':[

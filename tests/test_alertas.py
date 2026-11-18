@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import Image
 
-from closet.alertas import revisar_segmentacion
+from closet.alertas import fondo_impide_segmentar, revisar_segmentacion
 from closet.pipeline import procesar_foto
 
 
@@ -18,6 +18,20 @@ def test_segmentacion_limpia_no_genera_alertas():
     img, m = escena()
     alertas, met = revisar_segmentacion(img, m)
     assert alertas == [] and met["contraste"] > 60 and met["fondo_sigma"] < 1
+
+
+def test_filtro_de_fondo_requiere_dos_indicios():
+    assert not fondo_impide_segmentar(['fondo_complejo'])
+    assert not fondo_impide_segmentar(['prenda_parecida_fondo'])
+    assert fondo_impide_segmentar(['fondo_complejo', 'prenda_parecida_fondo'])
+
+
+def test_filtro_detecta_mascara_pegada_a_dos_bordes():
+    img, mask = escena(area=(slice(0, 100), slice(0, 80)))
+    alerts, metrics = revisar_segmentacion(img, mask)
+    assert metrics['contacto_bordes']['superior'] == .5
+    assert metrics['contacto_bordes']['izquierdo'] == .5
+    assert fondo_impide_segmentar(alerts)
 
 
 def test_prenda_del_color_del_fondo():

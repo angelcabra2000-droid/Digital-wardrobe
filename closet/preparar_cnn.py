@@ -33,9 +33,11 @@ if __name__=='__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--entrenar', action='store_true')
     parser.add_argument('--estampados', action='store_true')
+    parser.add_argument('--solo-segmentacion', action='store_true')
     args = parser.parse_args()
     print(prepare())
-    print(prepare('u2netp.onnx', '8e83ca70e441ab06c318d82300c84806'))
+    if not args.solo_segmentacion:
+        print(prepare('u2netp.onnx', '8e83ca70e441ab06c318d82300c84806'))
     if args.estampados:
         from huggingface_hub import snapshot_download
 

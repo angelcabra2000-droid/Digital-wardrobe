@@ -1,23 +1,42 @@
-# Closet Digital
+# Closet Gossip
 
-Segmenta y clasifica fotos de prendas con dos métodos: **U²-Net de ropa + CNN ResNet-18** en la web principal, y el método clásico NumPy (K-means, morfología, Haralick y KNN) en el estudio técnico. U²-Net es una variante anidada de U-Net; sus pesos de segmentación son externos preentrenados y la cabeza de clasificación ResNet-18 se adapta al catálogo local.
+Aplicación local para fotografiar o cargar una prenda, analizarla y guardarla en un clóset. El flujo principal usa U²-Net para delimitar la prenda cuando sus pesos están disponibles. K-means y la morfología ajustan una banda del contorno cuando las dos máscaras coinciden. Lab estima el color, Haralick y la periodicidad describen la apariencia, y KNN sugiere el tipo y la subcategoría.
 
-## Red neuronal y textura visual (actualización)
+## Ejecutar en Windows
 
-```bash
-source venv/bin/activate
-python -m pip install -r requirements-cnn.txt
-python -m closet.preparar_cnn --entrenar --estampados
-python -m closet.web --host 0.0.0.0
+Desde PowerShell, en la raíz del proyecto.
+
+```powershell
+python -m pip install -r requirements.txt
+python -m closet.web
 ```
 
-Si los pesos ya están instalados, basta iniciar `closet.web`. La inferencia funciona localmente, sin enviar las fotos a servicios de IA. En Ajustes del análisis se puede elegir CNN o clásico. La CNN utiliza 90 fotos incluidas de entrenamiento; la selección de época usó una reserva interna por grupos de 18 fotografías y obtuvo 18/18 antes del reajuste con las 90. Esa cifra selecciona el modelo, no es una prueba independiente ni una evaluación del segmentador. Las 39 imágenes reservadas de prueba no se utilizaron. Los resultados no son probabilidades calibradas.
+Abre [Closet Gossip](http://127.0.0.1:8765), el [estudio de procesamiento](http://127.0.0.1:8765/estudio) o el [informe experimental](http://127.0.0.1:8765/evidencia). Para probar la captura móvil, inicia con `python -m closet.web --host 0.0.0.0` y abre la dirección IP del equipo en el puerto 8765 desde un celular conectado a la misma Wi-Fi.
 
-`texturas.py` mide detalle a resolución de entrada dentro de la máscara, con contraste multiescala, patrones binarios locales y periodicidad. Distingue textura fina, marcada, repetitiva, irregular o no concluyente y separa textura de patrón. No identifica material ni tacto. Las fotos de baja resolución y las que contienen varias prendas requieren revisión. El selector superior/inferior es un recorte espacial asistido, no detección de instancias. La ficha muestra el estampado detectado por CLIP, como palmeras, flores o sin estampado. Escanear devuelve una sola prenda por foto. Puedes elegir la zona en Ajustes del análisis. Los resultados históricos deben volver a analizarse para obtener el estampado.
+## Segmentación híbrida y correcciones
 
-Los pesos grandes `datos/red_neuronal/*.onnx` y `*.pt` están excluidos de Git. `preparar_cnn` verifica los pesos de U²-Net distribuidos por [rembg](https://github.com/danielgatis/rembg); `entrenar_cnn` reconstruye el clasificador. `modelo.json` documenta los grupos, métricas y sumas. Las fotos de usuarios no se añaden al entrenamiento. Pruebas actuales: **184 satisfactorias**.
+```powershell
+python -m pip install onnxruntime
+python -m closet.preparar_cnn --solo-segmentacion
+python -m closet.evidencia --comparar-segmentadores
+```
 
-Los apartados siguientes describen principalmente el pipeline clásico original. Sus cifras históricas de IoU no son una evaluación de U²-Net ni una nueva medición de la integración.
+En Escanear, la app usa el híbrido cuando dispone de U²-Net y usa el método clásico en equipos sin sus pesos. En el estudio se puede elegir K-means, U²-Net o el híbrido y descargar las máscaras. El [informe comparativo](http://127.0.0.1:8765/evidencia/segmentacion) mide IoU y aciertos del mismo KNN para los tres recortes con las máscaras manuales de prueba.
+
+Al guardar un tipo o subcategoría corregidos sobre un recorte sin alertas, la app conserva un ejemplo por foto y perfil. El KNN consulta hasta 60 correcciones recientes de ese perfil y solo usa la sugerencia personal cuando los ejemplos son muy cercanos. Las correcciones no se incorporan al modelo general ni a la evaluación académica.
+
+## Reproducir la evidencia
+
+```powershell
+python -m closet.clasificacion --entrenar
+python -m closet.evidencia
+```
+
+El informe autocontenido se guarda en `resultados/evidencia/informe.html`. También se genera `predicciones.csv` con la categoría real y sugerida, el voto, la distancia al vecino más cercano y las métricas por máscara manual disponible. En el estudio se puede descargar el histograma, la máscara, los recortes y el JSON de cada análisis.
+
+El KNN general se seleccionó comparando 28 combinaciones de bloques de características y valores de k, dejando fuera grupos completos de entrenamiento. La configuración elegida usa **52 descriptores** (43 de forma, 4 de color y 5 de textura) y **k = 3**. Se conserva el dato original de 82,2 % de exactitud interna para el clasificador previo al filtro de incertidumbre. El informe mide aparte las 39 fotos reservadas con el filtro activo. Si se cambia el procesamiento o el catálogo, mueve la caché `resultados/entrenamiento_caracteristicas/` antes de reentrenar para regenerar los vectores.
+
+Agrega o corrige anotaciones en `datos/subcategorias.csv` con el ID de `datos/dataset.csv` y el nombre que muestra el selector de la aplicación. Se anotaron visualmente ejemplos de entrenamiento. El KNN de cada familia requiere al menos dos subcategorías con dos grupos independientes cada una. Las subcategorías con menos ejemplos se pueden seleccionar manualmente. Las etiquetas de jean y cuero se refieren a la apariencia visual de la foto.
 
 ## Pipeline
 
@@ -53,7 +72,7 @@ Closet_Digital/
 ├── tests/                   pruebas automáticas (pytest)
 ├── datos/                   (se crea sola) dataset.csv, exclusiones.txt, revision/
 ├── Aplicacion base de datos/   tus fotos (camisas, chaquetas, pantalones)
-└── segmentar_camisa_kmeans.py  script anterior (ya migrado a closet/segmentacion.py; puedes borrarlo)
+└── historico/segmentar_camisa_kmeans.py  script anterior archivado (no forma parte del pipeline)
 ```
 
 ## Instalación
@@ -201,7 +220,7 @@ El servidor `closet/web.py` usa HTTP de la biblioteca estándar y escucha única
 
 La resolución de análisis está limitada a 800 px; los PNG corresponden a esa resolución de procesamiento. Es un estudio local, no un servicio preparado para exponer en Internet.
 
-El catálogo visual lee los 142 registros de `datos/dataset.csv`, muestra ID, categoría y conjunto, y respeta las exclusiones: las fotos excluidas se pueden consultar con el filtro, pero no se procesan desde el catálogo. Se usa `Aplicacion base de datos/` como carpeta de fotos, con `BasedeDatos/` como alternativa si la primera no existe. Los registros CSV originales no se modifican.
+El catálogo visual lee los 142 registros de `datos/dataset.csv`, muestra el ID, la categoría, el conjunto y las exclusiones. Las 129 fotos incluidas se dividen en 90 de entrenamiento y 39 de prueba. Las fotos excluidas se pueden consultar con el filtro del catálogo. La fuente de fotografías es `Aplicacion base de datos/`.
 
 
 ## Closet Gossip: interfaz del ZIP y uso desde el celular
@@ -219,9 +238,11 @@ Desde el Mac abre http://127.0.0.1:8765. Desde el celular, conectado a la misma 
 
 **Procesamiento:** se ejecuta en módulos Python, no en los tests. `pipeline.py` preprocesa, segmenta y normaliza; `caracteristicas.py` extrae las medidas; `atributos.py` estima patrón, silueta, corte, simetría, claridad, intensidad y composición cromática; `red_neuronal.py` segmenta con U²-Net y sugiere el tipo con ResNet-18 en modo CNN; `clasificacion.py` conserva vecinos próximos para el modo clásico; `texturas.py` mide la apariencia local sobre la imagen de entrada. La pestaña técnica de resultados permite inspeccionar cada etapa.
 
-**Clasificador clásico:** `datos/modelo_caracteristicas.json` usa únicamente 90 registros incluidos de entrenamiento. La distancia normalizada pondera forma 80%, color 8% y textura 12%. Su validación deja fuera todo el grupo de la consulta y recalcula la normalización; obtuvo 82.22% global, 77.27% en camisas, 89.74% en chaquetas y 75.86% en pantalones. Son métricas internas de entrenamiento, no una evaluación final de las 39 fotos de prueba. No hay probabilidad calibrada ni garantía para fotos nuevas. Para regenerar: `python -m closet.clasificacion --entrenar`. Si se cambia el procesamiento, se deben regenerar los JSON intermedios de `resultados/entrenamiento_caracteristicas/` antes de reentrenar.
+**Mi clóset:** en «Por tipo de prenda», selecciona una categoría para filtrar por sus subcategorías. Las pestañas de color, patrón y textura muestran sus categorías incluso cuando están vacías. Puedes corregir el color antes de guardar o desde una ficha guardada. Las fichas se guardan en `resultados/estudio/closet.sqlite3`. Guardar nuevamente el mismo análisis actualiza su ficha.
 
-**Mi clóset:** dos pestañas organizan las mismas prendas guardadas: Por tipo de prenda y Por color. La búsqueda también admite patrón o silueta. Se puede corregir el tipo sugerido antes de guardar. Las prendas se conservan con SQLite en `resultados/estudio/closet.sqlite3`, referenciando los análisis existentes. Guardar otra vez el mismo análisis actualiza su ficha sin duplicarla.
+**Orientación:** el procesamiento respeta la orientación EXIF. En Escanear, usa «Girar 90°» hasta colocar la prenda derecha si la foto se tomó de lado o quedó invertida. La rotación se aplica a la imagen antes de segmentar y queda registrada en el análisis.
+
+**Revisión de fotos:** el flujo clásico usa la geometría de la máscara para sugerir Esqueleto si detecta dos tirantes finos sobre un torso continuo. Para la composición cromática, agrupa variantes de luminosidad compatibles con el mismo tono Lab. Si un fondo complejo coincide con bajo contraste o una cobertura anómala, se bloquea la ficha y el estudio conserva los archivos de segmentación. Los análisis anteriores se pueden repetir para obtener los nuevos resultados.
 
 **Perfil:** nombre, usuario y avatar se guardan en el navegador. Es personalización local sin contraseña ni autenticación. Cada navegador tiene un identificador de clóset distinto; usar el mismo nombre en otro dispositivo no sincroniza automáticamente el perfil. La versión de red está destinada a demostraciones en una Wi-Fi de confianza. Antes de publicarla en Internet se requiere autenticación y un despliegue HTTPS.
 

@@ -1,5 +1,5 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#14284f"><title>Closet Gossip</title><style>
-:root{--navy:#14284f;--blue:#1b3a6b;--muted:#5f7390;--cream:#f7f3ee;--line:#ccd4df}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:#cfd8e6;color:var(--navy);font:17px Georgia,'Times New Roman',serif}button,input,select{font:inherit}button,a,input,select{outline-offset:4px}button{cursor:pointer}button:disabled{opacity:.5;cursor:wait}a{color:var(--blue)}.phone{max-width:460px;margin:22px auto;background:#eceff3;border-radius:28px;overflow:hidden;box-shadow:0 18px 80px #14284f22;min-height:800px}.cover{min-height:790px;display:flex;flex-direction:column;justify-content:flex-end;background:#dfe3e8 url('/assets/portada.jpg') center top/cover no-repeat;padding:0 23px 22px}.glass{background:#f7f3ee85;backdrop-filter:blur(8px);border:1px solid #ffffffb3;box-shadow:0 4px 14px #0a19372e;border-radius:15px;text-align:center;padding:10px 12px;margin-top:9px}.glass strong{font-size:17px}.steps{display:flex;font-size:12px;gap:7px;margin-top:6px}.steps span{flex:1}.steps b{font-size:16px;margin-right:3px}.entry{display:flex;gap:5px}.entry input{min-width:0;width:35%;font-size:14px;padding:10px 7px;border:1px solid #14284f40;background:#ffffffe0;border-radius:9px;color:var(--navy)}.entry button{font-size:14px;padding:9px 13px;white-space:nowrap}.local-note{font-size:10px;line-height:1.5;margin:7px 0 0;color:#344764}.button{border-radius:999px;border:1px solid #bdc9da;background:#ffffffaa;color:var(--navy);padding:11px 17px;font-weight:bold;display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;font-size:15px}.primary{background:var(--blue);color:white;border-color:var(--blue)}.full{width:100%}.app{min-height:800px;background-image:url('/assets/borde_denim.png'),url('/assets/borde_azul_izq.png'),url('/assets/borde_azul_der.png');background-position:right top,left 70px,right bottom;background-size:150px auto,34px auto,74px auto;background-repeat:no-repeat;padding-bottom:30px}.logo{text-align:center;padding:20px 0 4px}.logo img{width:46%;max-width:190px}.nav{display:flex;gap:4px;padding:0 22px 16px}.nav button{flex:1;min-width:0;border:0;background:none;font-weight:bold;color:var(--muted);font-size:18px;padding:7px 0}.nav .circle{display:flex;align-items:center;justify-content:center;width:68px;height:68px;border:2px solid var(--navy);outline:3px solid white;box-shadow:0 0 0 5px #14284f20;border-radius:50%;margin:4px auto 13px;background:var(--cream)}.nav img{width:32px;height:32px;object-fit:contain}.nav button.active{color:var(--navy)}.nav button.active .circle{background:var(--navy)}.content{padding:7px 24px 125px;background-repeat:no-repeat;position:relative;background-size:64px auto,96px auto;background-position:right 10px bottom 8px,left 10px bottom 18px;min-height:510px}.scan-page{background-image:url('/assets/esquina_camisa.png'),url('/assets/esquina_pantalon.png')}.closet-page{background-image:url('/assets/esquina_percha.png'),url('/assets/esquina_zapato.png');background-size:86px auto,98px auto;background-position:left 10px bottom 8px,right 10px bottom 14px}.profile-page{background-image:url('/assets/esquina_bolso.png'),url('/assets/esquina_camisa.png');background-size:98px auto,54px auto}.spark{position:absolute;right:17px;top:8px;color:var(--navy);font-size:18px;pointer-events:none}h1{font-size:26px;font-weight:normal;text-align:center;margin:6px 0 9px}h2{font-size:23px;margin:5px 0 13px}h3{font-size:18px;margin:10px 0}p{line-height:1.6;color:var(--muted);font-size:14px}.lead{text-align:center;font-size:16px;margin:0 0 14px}.upload{width:100%;height:255px;border:1.5px dashed #a1afc3;border-radius:18px;background:#f7f3ee88;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--navy);position:relative;overflow:hidden;gap:8px}.upload svg{width:39px;height:39px}.upload img{width:100%;height:100%;object-fit:contain;position:absolute;inset:0;background:#e5e7e8}.upload .photo-name{position:absolute;bottom:9px;left:9px;right:9px;background:#f7f3eed9;border-radius:9px;font-size:12px;padding:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.upload.drag{background:#d6e1ef}.upload small{font-size:12px;color:var(--muted)}.actions{display:flex;gap:9px;margin:12px 0}.actions>*{flex:1}.filename{font-size:11px;color:var(--muted);text-align:center;margin:7px 0;word-break:break-word}.note{font-size:11px;line-height:1.6;color:var(--muted)}.settings{padding:12px;background:#ffffff55;border:1px solid #ffffff88;border-radius:13px;margin:13px 0;font-size:14px}.settings summary{cursor:pointer}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}input[type=text],select{width:100%;min-width:0;border:1px solid #14284f30;background:#ffffffc7;border-radius:11px;padding:10px;color:var(--navy)}input[type=range]{width:100%;accent-color:var(--blue)}.checkbox{display:flex;align-items:center;gap:7px;font-size:13px;margin-top:12px}.checkbox input{accent-color:var(--blue)}.status{font-size:14px;line-height:1.6;border-radius:12px;background:var(--cream);padding:12px;text-align:center;margin:12px 0}.status.error{color:#9c4232;background:#f8e8e2}.spinner{width:14px;height:14px;border:2px solid #a2b1c8;border-top-color:var(--blue);border-radius:50%;display:inline-block;vertical-align:middle;margin-right:8px;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.flow{display:flex;justify-content:space-between;gap:4px;font-size:10px;color:var(--muted);margin:15px 0}.flow span{background:#ffffffaa;padding:7px 5px;border-radius:6px;text-align:center;flex:1}.flow span.current{background:var(--navy);color:white}.result{border-radius:20px;background:var(--cream);padding:18px;margin-top:18px;box-shadow:0 4px 14px #14284f20}.result-head{display:flex;align-items:center;justify-content:space-between;gap:7px}.result-head h2{margin:0}.tag{padding:5px 8px;font-size:10px;border-radius:20px;background:#e0e8d8;color:#496137}.result-photo{height:235px;display:flex;align-items:center;justify-content:center;background:repeating-conic-gradient(#e1e4e5 0% 25%,#eef0f1 0% 50%) 50%/18px 18px;border-radius:12px;margin:14px 0}.result-photo img{max-height:100%;max-width:100%;object-fit:contain}.attrs{display:grid;grid-template-columns:1fr 1fr;gap:9px}.attribute{background:#ffffffad;border:1px solid #e3e5e8;border-radius:10px;padding:11px;min-width:0}.attribute small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:6px}.attribute strong{font-size:14px;font-weight:normal;line-height:1.3;display:block}.swatch{width:12px;height:12px;display:inline-block;vertical-align:middle;border-radius:50%;margin-right:5px;border:1px solid #14284f30}.more-attrs{margin-top:12px}.more-attrs summary{font-size:13px;cursor:pointer;color:var(--muted)}.warning{font-size:12px;background:#ece4d6;color:#705832;line-height:1.6;border-radius:9px;padding:10px;margin-top:12px}.lab{margin-top:18px}.lab summary{font-size:14px;cursor:pointer}.labtabs{display:flex;gap:7px;overflow:auto;margin:12px 0}.labtabs button{white-space:nowrap;border:1px solid var(--line);background:white;border-radius:8px;padding:8px;font-size:12px;color:var(--navy)}.labtabs button.active{background:var(--blue);color:white}.analysis-photo{width:100%;height:260px;object-fit:contain;background:#dde0e4;border-radius:10px}.metrics{font-size:12px;line-height:1.6;color:var(--muted);margin:8px 0}.group-tabs{display:flex;gap:7px;background:#ffffff70;border-radius:14px;padding:5px;margin-bottom:17px}.group-tabs button{flex:1;border:0;border-radius:10px;padding:11px 8px;background:none;color:var(--muted);font-weight:bold;font-size:15px}.group-tabs button.active{background:var(--cream);box-shadow:0 2px 8px #14284f13;color:var(--navy)}.filters{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 16px}.filter{border:1px solid #bac6d6;border-radius:999px;padding:7px 11px;background:#ffffff88;color:var(--muted);font-size:13px}.filter.active{color:white;background:var(--blue);border-color:var(--blue)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.garment{min-width:0;text-align:left;padding:9px;background:#f7f3ee;border:1px solid #e5e2de;border-radius:15px;color:var(--navy);box-shadow:0 3px 9px #14284f08}.garment img{width:100%;height:170px;object-fit:contain;background:#e8eaeb;border-radius:10px}.garment strong{display:block;font-size:14px;margin-top:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.garment small{font-size:12px;color:var(--muted);display:block;line-height:1.5;margin-top:4px}.empty{padding:30px 12px;text-align:center;font-size:14px;color:var(--muted);background:#ffffff66;border-radius:15px;line-height:1.7;grid-column:1/-1}.empty b{font-size:25px;display:block;color:var(--navy);margin-bottom:8px}.avatar{width:160px;height:160px;border-radius:50%;border:3px solid var(--navy);box-shadow:0 6px 16px #14284f40;background:var(--cream);margin:8px auto 12px;display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--navy);position:relative}.avatar img{width:100%;height:100%;object-fit:cover}.avatar svg{width:45px;height:45px}.username{text-align:center;font-size:27px;margin:15px 0}.username small{display:block;font-size:17px;color:var(--muted);margin-top:5px}.profile-fields{padding:18px;background:#ffffff70;border-radius:17px;margin:19px 0}.profile-fields .field{margin-bottom:14px}.stats{display:flex;justify-content:space-around;background:var(--cream);padding:14px 5px;border-radius:17px;margin:14px 0;box-shadow:0 4px 14px #14284f15}.stats b{font-size:24px;display:block;text-align:center}.stats span{font-size:11px;color:var(--muted)}.small-link{font-size:12px;text-align:center;display:block;margin-top:18px}.top-note{text-align:center;font-size:11px;margin:15px 0 0;color:var(--muted)}.footer{text-align:center;font-size:10px;color:var(--muted);padding:0 20px 15px}.catalog{margin-top:22px}.catalog summary{cursor:pointer;font-size:15px}.catalog .grid{margin-top:13px}.pager{display:flex;align-items:center;justify-content:space-between;gap:9px;margin:15px 0;font-size:12px}.pager button{padding:7px 11px;font-size:12px}.search{margin:12px 0}dialog{border:1px solid var(--line);background:var(--cream);color:var(--navy);border-radius:20px;width:420px;max-width:94vw;max-height:90vh;overflow:auto;padding:22px}dialog::backdrop{background:#14284fc7}dialog img{width:100%;height:250px;object-fit:contain}.close{float:right}.full-analysis{display:block;margin:18px auto;text-align:center;font-size:12px}.color-heading{font-size:18px;margin:20px 0 10px;grid-column:1/-1}.color-heading .swatch{width:17px;height:17px}.save-fields{margin:14px 0;display:grid;gap:9px}.help{font-size:12px;line-height:1.6;text-align:center;color:var(--muted)}@media(max-width:500px){body{background:#eceff3}.phone{width:100%;margin:0;border-radius:0;min-height:100dvh;box-shadow:none}.cover{min-height:100dvh;padding-bottom:25px;background-position:center top}.app{min-height:100dvh}.content{padding-left:20px;padding-right:20px}.nav{padding-left:22px;padding-right:22px}.entry input{font-size:16px}.button{font-size:15px}.logo{padding-top:18px}.stats span{font-size:10px}}@media(prefers-reduced-motion:reduce){.spinner{animation:none}}
+:root{--navy:#14284f;--blue:#1b3a6b;--muted:#5f7390;--cream:#f7f3ee;--line:#ccd4df}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:#cfd8e6;color:var(--navy);font:17px Georgia,'Times New Roman',serif}button,input,select{font:inherit}button,a,input,select{outline-offset:4px}button{cursor:pointer}button:disabled{opacity:.5;cursor:wait}a{color:var(--blue)}.phone{max-width:460px;margin:22px auto;background:#eceff3;border-radius:28px;overflow:hidden;box-shadow:0 18px 80px #14284f22;min-height:800px}.cover{min-height:790px;display:flex;flex-direction:column;justify-content:flex-end;background:#dfe3e8 url('/assets/portada.jpg') center top/cover no-repeat;padding:0 23px 22px}.glass{background:#f7f3ee85;backdrop-filter:blur(8px);border:1px solid #ffffffb3;box-shadow:0 4px 14px #0a19372e;border-radius:15px;text-align:center;padding:10px 12px;margin-top:9px}.glass strong{font-size:17px}.steps{display:flex;font-size:12px;gap:7px;margin-top:6px}.steps span{flex:1}.steps b{font-size:16px;margin-right:3px}.entry{display:flex;gap:5px}.entry input{min-width:0;width:35%;font-size:14px;padding:10px 7px;border:1px solid #14284f40;background:#ffffffe0;border-radius:9px;color:var(--navy)}.entry button{font-size:14px;padding:9px 13px;white-space:nowrap}.local-note{font-size:10px;line-height:1.5;margin:7px 0 0;color:#344764}.button{border-radius:999px;border:1px solid #bdc9da;background:#ffffffaa;color:var(--navy);padding:11px 17px;font-weight:bold;display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;font-size:15px}.primary{background:var(--blue);color:white;border-color:var(--blue)}.full{width:100%}.app{min-height:800px;background-image:url('/assets/borde_denim.png'),url('/assets/borde_azul_izq.png'),url('/assets/borde_azul_der.png');background-position:right top,left 70px,right bottom;background-size:150px auto,34px auto,74px auto;background-repeat:no-repeat;padding-bottom:30px}.logo{text-align:center;padding:20px 0 4px}.logo img{width:46%;max-width:190px}.nav{display:flex;gap:4px;padding:0 22px 16px}.nav button{flex:1;min-width:0;border:0;background:none;font-weight:bold;color:var(--muted);font-size:18px;padding:7px 0}.nav .circle{display:flex;align-items:center;justify-content:center;width:68px;height:68px;border:2px solid var(--navy);outline:3px solid white;box-shadow:0 0 0 5px #14284f20;border-radius:50%;margin:4px auto 13px;background:var(--cream)}.nav img{width:32px;height:32px;object-fit:contain}.nav button.active{color:var(--navy)}.nav button.active .circle{background:var(--navy)}.content{padding:7px 24px 125px;background-repeat:no-repeat;position:relative;background-size:64px auto,96px auto;background-position:right 10px bottom 8px,left 10px bottom 18px;min-height:510px}.scan-page{background-image:url('/assets/esquina_camisa.png'),url('/assets/esquina_pantalon.png')}.closet-page{background-image:url('/assets/esquina_percha.png'),url('/assets/esquina_zapato.png');background-size:86px auto,98px auto;background-position:left 10px bottom 8px,right 10px bottom 14px}.profile-page{background-image:url('/assets/esquina_bolso.png'),url('/assets/esquina_camisa.png');background-size:98px auto,54px auto}.spark{position:absolute;right:17px;top:8px;color:var(--navy);font-size:18px;pointer-events:none}h1{font-size:26px;font-weight:normal;text-align:center;margin:6px 0 9px}h2{font-size:23px;margin:5px 0 13px}h3{font-size:18px;margin:10px 0}p{line-height:1.6;color:var(--muted);font-size:14px}.lead{text-align:center;font-size:16px;margin:0 0 14px}.upload{width:100%;height:255px;border:1.5px dashed #a1afc3;border-radius:18px;background:#f7f3ee88;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--navy);position:relative;overflow:hidden;gap:8px}.upload svg{width:39px;height:39px}.upload img{width:100%;height:100%;object-fit:contain;position:absolute;inset:0;background:#e5e7e8}.upload .photo-name{position:absolute;bottom:9px;left:9px;right:9px;background:#f7f3eed9;border-radius:9px;font-size:12px;padding:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.upload.drag{background:#d6e1ef}.upload small{font-size:12px;color:var(--muted)}.actions{display:flex;gap:9px;margin:12px 0}.actions>*{flex:1}.filename{font-size:11px;color:var(--muted);text-align:center;margin:7px 0;word-break:break-word}.note{font-size:11px;line-height:1.6;color:var(--muted)}.settings{padding:12px;background:#ffffff55;border:1px solid #ffffff88;border-radius:13px;margin:13px 0;font-size:14px}.settings summary{cursor:pointer}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}input[type=text],select{width:100%;min-width:0;border:1px solid #14284f30;background:#ffffffc7;border-radius:11px;padding:10px;color:var(--navy)}input[type=range]{width:100%;accent-color:var(--blue)}.checkbox{display:flex;align-items:center;gap:7px;font-size:13px;margin-top:12px}.checkbox input{accent-color:var(--blue)}.status{font-size:14px;line-height:1.6;border-radius:12px;background:var(--cream);padding:12px;text-align:center;margin:12px 0}.status.error{color:#9c4232;background:#f8e8e2}.spinner{width:14px;height:14px;border:2px solid #a2b1c8;border-top-color:var(--blue);border-radius:50%;display:inline-block;vertical-align:middle;margin-right:8px;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.flow{display:flex;justify-content:space-between;gap:4px;font-size:10px;color:var(--muted);margin:15px 0}.flow span{background:#ffffffaa;padding:7px 5px;border-radius:6px;text-align:center;flex:1}.flow span.current{background:var(--navy);color:white}.result{border-radius:20px;background:var(--cream);padding:18px;margin-top:18px;box-shadow:0 4px 14px #14284f20}.result-head{display:flex;align-items:center;justify-content:space-between;gap:7px}.result-head h2{margin:0}.tag{padding:5px 8px;font-size:10px;border-radius:20px;background:#e0e8d8;color:#496137}.result-photo{height:235px;display:flex;align-items:center;justify-content:center;background:repeating-conic-gradient(#e1e4e5 0% 25%,#eef0f1 0% 50%) 50%/18px 18px;border-radius:12px;margin:14px 0}.result-photo img{max-height:100%;max-width:100%;object-fit:contain}.attrs{display:grid;grid-template-columns:1fr 1fr;gap:9px}.attribute{background:#ffffffad;border:1px solid #e3e5e8;border-radius:10px;padding:11px;min-width:0}.attribute small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:6px}.attribute strong{font-size:14px;font-weight:normal;line-height:1.3;display:block}.swatch{width:12px;height:12px;display:inline-block;vertical-align:middle;border-radius:50%;margin-right:5px;border:1px solid #14284f30}.more-attrs{margin-top:12px}.more-attrs summary{font-size:13px;cursor:pointer;color:var(--muted)}.warning{font-size:12px;background:#ece4d6;color:#705832;line-height:1.6;border-radius:9px;padding:10px;margin-top:12px}.lab{margin-top:18px}.lab summary{font-size:14px;cursor:pointer}.labtabs{display:flex;gap:7px;overflow:auto;margin:12px 0}.labtabs button{white-space:nowrap;border:1px solid var(--line);background:white;border-radius:8px;padding:8px;font-size:12px;color:var(--navy)}.labtabs button.active{background:var(--blue);color:white}.analysis-photo{width:100%;height:260px;object-fit:contain;background:#dde0e4;border-radius:10px}.metrics{font-size:12px;line-height:1.6;color:var(--muted);margin:8px 0}.group-tabs{display:flex;flex-wrap:wrap;gap:7px;background:#ffffff70;border-radius:14px;padding:5px;margin-bottom:17px}.group-tabs button{flex:1 0 28%;border:0;border-radius:10px;padding:11px 8px;background:none;color:var(--muted);font-weight:bold;font-size:15px}.group-tabs button.active{background:var(--cream);box-shadow:0 2px 8px #14284f13;color:var(--navy)}.filters{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 16px}.filter{border:1px solid #bac6d6;border-radius:999px;padding:7px 11px;background:#ffffff88;color:var(--muted);font-size:13px}.filter.active{color:white;background:var(--blue);border-color:var(--blue)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.garment{min-width:0;text-align:left;padding:9px;background:#f7f3ee;border:1px solid #e5e2de;border-radius:15px;color:var(--navy);box-shadow:0 3px 9px #14284f08}.garment img{width:100%;height:170px;object-fit:contain;background:#e8eaeb;border-radius:10px}.garment strong{display:block;font-size:14px;margin-top:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.garment small{font-size:12px;color:var(--muted);display:block;line-height:1.5;margin-top:4px}.empty{padding:30px 12px;text-align:center;font-size:14px;color:var(--muted);background:#ffffff66;border-radius:15px;line-height:1.7;grid-column:1/-1}.empty b{font-size:25px;display:block;color:var(--navy);margin-bottom:8px}.avatar{width:160px;height:160px;border-radius:50%;border:3px solid var(--navy);box-shadow:0 6px 16px #14284f40;background:var(--cream);margin:8px auto 12px;display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--navy);position:relative}.avatar img{width:100%;height:100%;object-fit:cover}.avatar svg{width:45px;height:45px}.username{text-align:center;font-size:27px;margin:15px 0}.username small{display:block;font-size:17px;color:var(--muted);margin-top:5px}.profile-fields{padding:18px;background:#ffffff70;border-radius:17px;margin:19px 0}.profile-fields .field{margin-bottom:14px}.stats{display:flex;justify-content:space-around;background:var(--cream);padding:14px 5px;border-radius:17px;margin:14px 0;box-shadow:0 4px 14px #14284f15}.stats b{font-size:24px;display:block;text-align:center}.stats span{font-size:11px;color:var(--muted)}.small-link{font-size:12px;text-align:center;display:block;margin-top:18px}.top-note{text-align:center;font-size:11px;margin:15px 0 0;color:var(--muted)}.footer{text-align:center;font-size:10px;color:var(--muted);padding:0 20px 15px}.catalog{margin-top:22px}.catalog summary{cursor:pointer;font-size:15px}.catalog .grid{margin-top:13px}.pager{display:flex;align-items:center;justify-content:space-between;gap:9px;margin:15px 0;font-size:12px}.pager button{padding:7px 11px;font-size:12px}.search{margin:12px 0}dialog{border:1px solid var(--line);background:var(--cream);color:var(--navy);border-radius:20px;width:420px;max-width:94vw;max-height:90vh;overflow:auto;padding:22px}dialog::backdrop{background:#14284fc7}dialog img{width:100%;height:250px;object-fit:contain}.close{float:right}.full-analysis{display:block;margin:18px auto;text-align:center;font-size:12px}.color-heading{font-size:18px;margin:20px 0 10px;grid-column:1/-1}.color-heading .swatch{width:17px;height:17px}.save-fields{margin:14px 0;display:grid;gap:9px}.help{font-size:12px;line-height:1.6;text-align:center;color:var(--muted)}@media(max-width:500px){body{background:#eceff3}.phone{width:100%;margin:0;border-radius:0;min-height:100dvh;box-shadow:none}.cover{min-height:100dvh;padding-bottom:25px;background-position:center top}.app{min-height:100dvh}.content{padding-left:20px;padding-right:20px}.nav{padding-left:22px;padding-right:22px}.entry input{font-size:16px}.button{font-size:15px}.logo{padding-top:18px}.stats span{font-size:10px}}@media(prefers-reduced-motion:reduce){.spinner{animation:none}}
 
 .outfit-button{margin-top:10px}
 .prenda-actions{display:grid;gap:10px;margin-top:16px}
@@ -10,18 +10,31 @@
 .outfit-piece strong,.outfit-piece small{display:block;margin-top:6px;overflow-wrap:anywhere}
 .outfit-piece small{color:var(--muted)}
 #outfitstatus{min-height:1.4em;line-height:1.4}
+
+.logo{position:relative}
+.profile-link{position:absolute;top:14px;right:14px;display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:50%;color:var(--navy);background:var(--cream)}
+.profile-link svg{width:20px;height:20px}
+.profile-link[aria-pressed="true"]{color:white;background:var(--navy)}
+.upload{container-type:size}
+.upload img{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%) rotate(var(--rotation,0deg))}
+.upload img.quarter-turn{width:100cqh;height:100cqw}
+.photo-preview{position:relative}
+.rotate-photo{position:absolute;right:10px;bottom:10px;display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:#f7f3eee8;color:var(--navy);font:22px/1 system-ui,sans-serif}
+.photo-tip{margin:8px 0 13px;text-align:center;font-size:12px;color:var(--muted)}
+.filter .swatch{margin:0 4px 0 0;width:10px;height:10px;vertical-align:baseline}
+#detailcolorform{margin-top:14px;display:grid;gap:8px}
 </style></head><body><div class="phone">
 <section class="cover" id="cover"><div class="glass"><strong>✦ Cómo comenzar</strong><div class="steps"><span><b>1</b>Escribe tu nombre</span><span><b>2</b>Escanea tus prendas</span><span><b>3</b>Guarda tu clóset</span></div></div><form class="glass" id="entryform"><div class="entry"><input id="entryname" aria-label="Tu nombre" placeholder="Tu nombre" maxlength="50" autocomplete="given-name" required><input id="entryuser" aria-label="Usuario" placeholder="Usuario" maxlength="40" autocomplete="username" required><button class="button primary" type="submit">Entrar →</button></div><p class="local-note">Tu perfil se guarda en este navegador · sin contraseña</p></form></section>
-<section class="app" id="app" hidden><header class="logo"><img src="/assets/logo.png" alt="Closet Gossip"></header><nav class="nav" aria-label="Navegación principal"><button class="active" data-page="scan"><span class="circle"><img src="/assets/ic_escanear_claro.png" alt=""></span>Escanear</button><button data-page="closet"><span class="circle"><img src="/assets/ic_closet.png" alt=""></span>Mi clóset</button><button data-page="profile"><span class="circle"><img src="/assets/ic_perfil.png" alt=""></span>Perfil</button></nav>
-<section class="content scan-page" id="scan"><span class="spark">✦</span><p class="lead">Fotografía una prenda ✦</p><input id="uploadfile" type="file" accept="image/*" hidden><input id="camerafile" type="file" accept="image/*" capture="environment" hidden><button class="upload" id="drop" aria-label="Cargar foto de la prenda"><svg fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5"/></svg><strong>Coloca la imagen aquí</strong><span>Haz clic para cargar</span><small>Una prenda visible y con buena iluminación</small></button><div class="actions"><button class="button" id="camera">📷 Tomar foto</button><button class="button" id="upload">Elegir imagen</button></div><p class="filename" id="filename">JPG, PNG, WebP o foto de tu cámara · hasta 20 MB</p><div class="prenda-actions"><button class="button primary full" id="run" disabled>Guardar prenda en tu clóset</button><button class="button full" id="combine" disabled>Combinar con prenda de tu clóset</button></div><p class="help">Elige una foto y decide qué quieres hacer con tu prenda.</p><div class="flow" id="flow"><span>Preparando foto</span><span>Reconociendo prenda</span><span>Buscando detalles</span><span>Prenda lista</span></div><div id="status" class="status" role="status" aria-live="polite" hidden></div>
+<section class="app" id="app" hidden><header class="logo"><img src="/assets/logo.png" alt="Closet Gossip"><button type="button" class="profile-link" id="profilelink" aria-label="Perfil" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.3"/><path d="M5 20v-2a7 7 0 0 1 14 0v2"/></svg></button></header><nav class="nav" aria-label="Navegación principal"><button class="active" data-page="scan"><span class="circle"><img src="/assets/ic_escanear_claro.png" alt=""></span>Escanear</button><button data-page="closet"><span class="circle"><img src="/assets/ic_closet.png" alt=""></span>Mi clóset</button></nav>
+<section class="content scan-page" id="scan"><span class="spark">✦</span><p class="lead">Fotografía una prenda ✦</p><input id="uploadfile" type="file" accept="image/*" hidden><input id="camerafile" type="file" accept="image/*" capture="environment" hidden><div class="photo-preview"><button class="upload" id="drop" aria-label="Cargar foto de la prenda"><svg fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5"/></svg><strong>Coloca la imagen aquí</strong><span>Haz clic para cargar</span></button><button type="button" class="rotate-photo" id="rotatephoto" aria-label="Girar foto 90 grados" title="Girar foto 90 grados" hidden><span aria-hidden="true">↻</span></button></div><p class="photo-tip">Encuadra la prenda completa y extendida, con luz uniforme y un fondo liso que contraste.</p><div class="actions"><button class="button" id="camera">📷 Tomar foto</button><button class="button" id="upload">Elegir imagen</button></div><div class="prenda-actions"><button class="button primary full" id="run" disabled>Analizar prenda</button><button class="button full" id="combine" disabled>Combinar con prenda de tu clóset</button></div><div class="flow" id="flow" hidden><span>Preparando foto</span><span>Reconociendo prenda</span><span>Buscando detalles</span><span>Prenda lista</span></div><div id="status" class="status" role="status" aria-live="polite" hidden></div>
 <section id="result" aria-label="Prenda detectada" hidden></section>
 <template id="garment-result">
-<article class="result"><div class="result-head"><h2 data-field="categorytitle">Tu prenda</h2><span class="tag">Tipo sugerido</span></div><div class="result-photo"><img data-field="resultimage" alt="Prenda sin fondo"></div><div class="attrs" data-field="attrs"></div><details class="more-attrs"><summary>Más características de tu prenda</summary><div class="attrs" data-field="moreattrs" style="margin-top:12px"></div><p class="note">Textura, estampado, silueta y corte son estimaciones visuales. Una foto no determina material ni tacto. La resolución, los pliegues y la iluminación pueden alterar el resultado.</p></details><div data-field="review" class="warning" hidden></div><div class="save-fields"><label class="field">Nombre de la prenda<input type="text" data-field="garmentname" maxlength="100" placeholder="Mi nueva prenda"></label><label class="field">Confirma el tipo<select data-field="garmentcategory"><option value="">Elige el tipo</option><option value="camisas">Camisa</option><option value="chaquetas">Chaqueta</option><option value="pantalones">Pantalón</option></select></label></div><button class="button primary full" data-field="save">Guardar prenda en tu clóset</button><div data-field="savestatus" class="help" role="status"></div><button class="button full outfit-button" data-field="outfit" type="button">Combinar con prenda de tu clóset</button><p data-field="outfithelp" class="help" role="status" hidden></p></article>
+<article class="result"><div class="result-head"><h2 data-field="categorytitle">Tu prenda</h2></div><div class="result-photo"><img data-field="resultimage" alt="Prenda sin fondo"></div><div class="attrs" data-field="attrs"></div><details class="more-attrs"><summary>Más características de tu prenda</summary><div class="attrs" data-field="moreattrs" style="margin-top:12px"></div><p class="note">Textura, estampado, silueta y corte son estimaciones visuales. Una foto no determina material ni tacto. La resolución, los pliegues y la iluminación pueden alterar el resultado.</p></details><div data-field="review" class="warning" hidden></div><div class="save-fields"><label class="field">Nombre de la prenda<input type="text" data-field="garmentname" maxlength="100" placeholder="Mi nueva prenda"></label><label class="field">Confirma el tipo<select data-field="garmentcategory"><option value="">Sin categoría</option><option value="camisas">Camisa</option><option value="chaquetas">Chaqueta</option><option value="pantalones">Pantalón</option></select></label><label class="field">Subcategoría<select data-field="subtype" disabled><option value="">Sin subcategoría</option></select></label><label class="field">Color<select data-field="garmentcolor" disabled><option value="">Usar color detectado</option></select></label></div><button class="button primary full" data-field="save">Guardar prenda en tu clóset</button><div data-field="savestatus" class="help" role="status"></div><p class="help">Tus correcciones de tipo y subcategoría ayudan a sugerir prendas parecidas en este clóset.</p><button class="button full outfit-button" data-field="outfit" type="button">Combinar con prenda de tu clóset</button><p data-field="outfithelp" class="help" role="status" hidden></p></article>
 </template>
 <details class="catalog"><summary>O prueba una foto de ejemplo</summary><p class="note">Elige una foto para conocer las opciones de tu clóset.</p><select id="samplecategory" aria-label="Categoría del catálogo"><option value="">Todas las categorías</option><option value="camisas">Camisas</option><option value="chaquetas">Chaquetas</option><option value="pantalones">Pantalones</option></select><div id="samplegrid" class="grid"></div><div class="pager"><button class="button" id="prev">← Anterior</button><span id="samplecount"></span><button class="button" id="next">Siguiente →</button></div></details></section>
-<section class="content closet-page" id="closet" hidden><span class="spark">✦</span><h1>Mi clóset ✦</h1><p class="lead">Tu estilo, a tu manera.</p><div class="group-tabs" role="tablist" aria-label="Organizar mi clóset"><button class="active" role="tab" aria-selected="true" data-group="type">Por tipo de prenda</button><button role="tab" aria-selected="false" data-group="color">Por color</button></div><div class="filters" id="closetfilters"></div><input class="search" type="text" id="closetsearch" aria-label="Buscar en mi clóset" placeholder="Busca una prenda, estampado o silueta…"><p id="closetcount" class="note"></p><div class="grid" id="wardrobegrid"></div></section>
-<section class="content profile-page" id="profile" hidden><span class="spark">✦</span><input type="file" id="avatarfile" accept="image/*" hidden><button class="avatar" id="avatar" aria-label="Cambiar foto de perfil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/></svg></button><p class="help">Toca el círculo para subir tu foto</p><div class="username" id="profileheader"></div><form class="profile-fields" id="profileform"><div class="field"><label for="profilename">Nombre</label><input type="text" id="profilename" maxlength="50" required></div><div class="field"><label for="profileuser">Usuario</label><input type="text" id="profileuser" maxlength="40" required></div><button class="button full" type="submit">Guardar perfil</button><p class="help" id="profilemessage" role="status"></p></form><div class="stats" id="stats"></div><p class="note">Este es un perfil local del navegador, sin autenticación. Para usarlo desde tu celular, abre la dirección del Mac estando en la misma red Wi-Fi.</p><button class="button full" id="logout">Cerrar sesión</button></section><p class="footer">Closet Gossip · Descubre, organiza y comparte ✦</p></section></div>
-<dialog id="detail"><button class="button close" id="closedetail">Cerrar ×</button><h2 id="detailname"></h2><img id="detailimage" alt="Prenda guardada"><div id="detailattrs" class="attrs"></div><button class="button primary full outfit-button" id="detailoutfit" type="button">Combinar con prenda de tu clóset</button></dialog>
+<section class="content closet-page" id="closet" hidden><span class="spark">✦</span><h1>Mi clóset ✦</h1><p class="lead">Tu estilo, a tu manera.</p><div class="group-tabs" role="tablist" aria-label="Organizar mi clóset"><button class="active" role="tab" aria-selected="true" data-group="type">Por tipo de prenda</button><button role="tab" aria-selected="false" data-group="color">Por color</button><button role="tab" aria-selected="false" data-group="pattern">Por patrón</button><button role="tab" aria-selected="false" data-group="texture">Por textura</button></div><p class="note" id="catalogcount" hidden></p><div class="filters" id="closetfilters"></div><label class="field" id="closetsubtypefield" hidden>Subcategoría<select id="closetsubtype"><option value="">Todas</option></select></label><input class="search" type="text" id="closetsearch" aria-label="Buscar en mi clóset" placeholder="Busca una prenda, estampado o silueta…"><p id="closetcount" class="note"></p><div class="grid" id="wardrobegrid"></div></section>
+<section class="content profile-page" id="profile" hidden><span class="spark">✦</span><input type="file" id="avatarfile" accept="image/*" hidden><button class="avatar" id="avatar" aria-label="Cambiar foto de perfil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/></svg></button><p class="help">Toca el círculo para subir tu foto</p><div class="username" id="profileheader"></div><form class="profile-fields" id="profileform"><div class="field"><label for="profilename">Nombre</label><input type="text" id="profilename" maxlength="50" required></div><div class="field"><label for="profileuser">Usuario</label><input type="text" id="profileuser" maxlength="40" required></div><button class="button full" type="submit">Guardar perfil</button><p class="help" id="profilemessage" role="status"></p></form><div class="stats" id="stats"></div><p class="note">Este es un perfil local del navegador, sin autenticación. Para usarlo desde tu celular, abre la dirección del equipo estando en la misma red Wi-Fi.</p><button class="button full" id="logout">Cerrar sesión</button></section><p class="footer"><a href="/estudio">Estudio de procesamiento</a></p></section></div>
+<dialog id="detail"><button class="button close" id="closedetail">Cerrar ×</button><h2 id="detailname"></h2><img id="detailimage" alt="Prenda guardada"><div id="detailattrs" class="attrs"></div><form id="detailcolorform"><label class="field">Color<select id="detailcolor"></select></label><button class="button" type="submit" id="detailcolorsave">Guardar color</button><p class="help" id="detailcolorstatus" role="status"></p></form><button class="button primary full outfit-button" id="detailoutfit" type="button">Combinar con prenda de tu clóset</button></dialog>
 <dialog id="outfit" aria-labelledby="outfittitle">
   <button class="button close" id="closeoutfit" type="button">Cerrar ×</button>
   <h2 id="outfittitle">Conjunto para hoy</h2>
@@ -37,8 +50,9 @@ function node(tag,cls,text){const e=document.createElement(tag);if(cls)e.classNa
 function img(src,alt){const e=node('img');e.src=src;e.alt=alt;e.loading='lazy';return e}
 async function api(url,data){const options=data===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)};const r=await fetch(url,options);let body;try{body=await r.json()}catch{throw Error('El servidor no respondió. Vuelve a intentarlo.')}if(!r.ok)throw Error(body.error||'No se pudo completar la solicitud.');return body}
 function message(text,error=false){const e=$('#status');e.hidden=false;e.classList.toggle('error',error);e.replaceChildren();if(busy&&!error)e.append(node('span','spinner'));e.append(document.createTextNode(text))}
-function navigate(page){for(const id of ['scan','closet','profile'])$('#'+id).hidden=id!==page;$$('.nav button').forEach(b=>{const active=b.dataset.page===page;b.classList.toggle('active',active);const icon={scan:'escanear',closet:'closet',profile:'perfil'}[b.dataset.page];b.querySelector('img').src='/assets/ic_'+icon+(active?'_claro':'')+'.png'});if(page==='closet')loadWardrobe();window.scrollTo({top:0,behavior:'smooth'})}
+function navigate(page){for(const id of ['scan','closet','profile'])$('#'+id).hidden=id!==page;$$('.nav button').forEach(b=>{const active=b.dataset.page===page;b.classList.toggle('active',active);const icon={scan:'escanear',closet:'closet'}[b.dataset.page];b.querySelector('img').src='/assets/ic_'+icon+(active?'_claro':'')+'.png'});$('#profilelink').setAttribute('aria-pressed',page==='profile');if(page==='closet')loadWardrobe();window.scrollTo({top:0,behavior:'smooth'})}
 $$('.nav button').forEach(b=>b.onclick=()=>navigate(b.dataset.page));
+$('#profilelink').onclick=()=>navigate('profile');
 function storeProfile(){localStorage.setItem('closet-gossip-profile',JSON.stringify(profile));renderProfile()}
 function renderProfile(){$('#profilename').value=profile.name;$('#profileuser').value=profile.user;$('#profileheader').replaceChildren(document.createTextNode(profile.name+' ✦'),node('small','',profile.user));if(profile.avatar){$('#avatar').replaceChildren(img(profile.avatar,'Tu foto de perfil'))}}
 function enter(){owner=profile.owner;$('#cover').hidden=true;$('#app').hidden=false;renderProfile();loadWardrobe()}
@@ -51,26 +65,89 @@ $('#avatarfile').onchange=async e=>{if(!e.target.files[0])return;try{profile.ava
 function setBusy(value){
   busy=value;
   for(const id of ['run','combine']) $('#'+id).disabled=value||!selection;
-  $('#run').textContent='Guardar prenda en tu clóset';
+  $('#run').textContent=value?'Analizando prenda…':'Analizar prenda';
   $('#combine').textContent='Combinar con prenda de tu clóset';
-  for(const id of ['camera','upload','drop']) $('#'+id).disabled=value;
+  for(const id of ['camera','upload','drop','rotatephoto']) $('#'+id).disabled=value;
   $$('#samplegrid button').forEach(b=>b.disabled=value);
 }
-function showPreview(url,name){const drop=$('#drop');drop.replaceChildren(img(url,name),node('span','photo-name',name));$('#filename').textContent=name;$('#result').hidden=true;$('#status').hidden=true;$('#run').disabled=false;$('#combine').disabled=false;$$('#flow span').forEach(s=>s.classList.remove('current'))}
-async function chooseFile(file){if(busy||!file)return;try{const data=await normalizedFile(file);selection={image:data.split(',')[1],name:file.name};showPreview(data,file.name)}catch(e){message(e.message,true)}}
+const emptyPreview = [...$('#drop').childNodes];
+function resetScan() {
+  selection = null;
+  $('#uploadfile').value = '';
+  $('#camerafile').value = '';
+  $('#drop').replaceChildren(...emptyPreview);
+  $('#rotatephoto').hidden = true;
+  $('#result').replaceChildren();
+  $('#result').hidden = true;
+  $('#status').replaceChildren();
+  $('#status').hidden = true;
+  $('#status').classList.remove('error');
+  flow(-1);
+  setBusy(false);
+  if (!$('#scan').hidden) window.scrollTo({top:0});
+}
+function showPreview(url) {
+  const photo = img(url, 'Foto seleccionada');
+  photo.style.setProperty('--rotation', selection.rotation + 'deg');
+  photo.classList.toggle('quarter-turn', selection.rotation % 180 !== 0);
+  $('#drop').replaceChildren(photo);
+  $('#rotatephoto').hidden=false;
+  $('#result').hidden=true;
+  $('#status').hidden=true;
+  $('#result').replaceChildren();
+  setBusy(false);
+  flow(-1);
+}
+$('#rotatephoto').onclick=()=>{
+  if (!selection || busy) return;
+  selection.rotation=(selection.rotation+90)%360;
+  showPreview($('#drop img').src);
+};
+async function chooseFile(file){
+  if(busy||!file)return;
+  try{
+    const data=await normalizedFile(file);
+    if(busy)return;
+    selection={image:data.split(',')[1],rotation:0};
+    showPreview(data);
+  }catch(e){message(e.message,true)}
+}
 $('#upload').onclick=()=>$('#uploadfile').click();$('#camera').onclick=()=>$('#camerafile').click();$('#drop').onclick=()=>$('#uploadfile').click();$('#uploadfile').onchange=e=>chooseFile(e.target.files[0]);$('#camerafile').onchange=e=>chooseFile(e.target.files[0]);
 for(const name of ['dragenter','dragover'])$('#drop').addEventListener(name,e=>{e.preventDefault();$('#drop').classList.add('drag')});for(const name of ['dragleave','drop'])$('#drop').addEventListener(name,e=>{e.preventDefault();$('#drop').classList.remove('drag');if(name==='drop')chooseFile(e.dataTransfer.files[0])});
-function flow(stage){$$('#flow span').forEach((s,i)=>s.classList.toggle('current',i===stage))}
+function flow(stage){$('#flow').hidden=stage<0;$$('#flow span').forEach((s,i)=>s.classList.toggle('current',i===stage))}
 function attribute(label,value,hex){const card=node('div','attribute');card.append(node('small','',label));const v=node('strong','');if(hex&&/^#[0-9a-f]{6}$/i.test(hex)){const s=node('span','swatch');s.style.background=hex;v.append(s)}v.append(document.createTextNode(value||'Sin determinar'));card.append(v);return card}
-function attrsFor(job){const a=job.attributes||{},f=job.features||{};return [['Color',a.color||f.color_nombre,f.color_hex],['Estampado',a.print?.label||'Pendiente de analizar'],['Silueta estimada',a.silhouette||a.shape],['Textura visual estimada',a.texture||f.estampado?.replaceAll('_',' ')]]}
+function attrsFor(job){
+  const a=job.attributes||{}, f=job.features||{};
+  return [['Color',colorName(job),a.color_override?catalog.colors[a.color_override]:f.color_hex],
+    ['Patrón',a.pattern_category],['Silueta estimada',a.silhouette||a.shape],['Textura',a.texture_category]];
+}
+let catalog={colors:{},patterns:[],textures:[],unknown:'Sin determinar'};
+const catalogOptions=api('/api/catalog-options').then(options=>{
+  catalog=options;
+  renderCloset();
+  return options;
+});
+catalogOptions.catch(()=>{});
+async function populateColors(select, value=''){
+  const {colors}=await catalogOptions;
+  select.replaceChildren(new Option('Usar color detectado',''), ...Object.keys(colors).map(color=>new Option(color)));
+  select.value=value;
+  select.disabled=false;
+}
+let subtypeLabels={};
+const subtypeOptions=api('/api/subtypes').then(labels=>{subtypeLabels=labels;renderCloset();return labels;}).catch(()=>({}));
 function garmentCard(job, garment) {
   const card = $('#garment-result').content.firstElementChild.cloneNode(true);
   const field = name => card.querySelector('[data-field="' + name + '"]');
   const category = garment.classification || {};
   const attributes = garment.attributes || {};
   field('categorytitle').textContent = singular[category.category] || 'Confirma el tipo de prenda';
-  field('resultimage').src = garment.images.sin_fondo;
+  field('resultimage').src = garment.images.normalizada || garment.images.sin_fondo;
   field('attrs').replaceChildren(...attrsFor(garment).map(item => attribute(...item)));
+  const evidence = node('a', 'full-analysis', 'Descargar evidencia de este análisis');
+  evidence.href = '/media/' + job.id + '/resultados.zip';
+  evidence.download = 'analisis-prenda.zip';
+  card.append(evidence);
   const details = [
     ['Corte estimado', attributes.cut],
     ['Simetría', attributes.symmetry],
@@ -81,9 +158,26 @@ function garmentCard(job, garment) {
   ];
   field('moreattrs').replaceChildren(...details.map(item => attribute(...item)));
   field('garmentname').value = category.category
-    ? (singular[category.category] + ' ' + (attributes.color || '')).trim()
+    ? singular[category.category]
     : 'Prenda ' + (garment.garment_id || '1');
-  field('garmentcategory').value = category.category || '';
+  const colorSelect=field('garmentcolor');
+  populateColors(colorSelect).catch(error=>{field('savestatus').textContent=error.message;});
+  colorSelect.onchange=()=>field('attrs').replaceChildren(...attrsFor({
+    ...garment, attributes:{...attributes,color_override:colorSelect.value}
+  }).map(item=>attribute(...item)));
+  const typeSelect = field('garmentcategory');
+  const subtypeSelect = field('subtype');
+  typeSelect.value = category.category || '';
+  function updateSubtypes(labels, selected = '') {
+    const options = labels[typeSelect.value] || [];
+    subtypeSelect.replaceChildren(new Option('Sin subcategoría', ''), ...options.map(label => new Option(label)));
+    subtypeSelect.value = options.includes(selected) ? selected : '';
+    subtypeSelect.disabled = !options.length;
+  }
+  subtypeOptions.then(labels => {
+    updateSubtypes(labels, typeSelect.value === category.category ? category.subtype : '');
+    typeSelect.onchange = () => updateSubtypes(labels);
+  });
   const review = field('review');
   review.hidden = !category.review && !garment.alerts?.length;
   review.textContent = category.message || (category.review
@@ -93,11 +187,7 @@ function garmentCard(job, garment) {
   save.onclick = async () => {
     const type = field('garmentcategory').value;
     const status = field('savestatus');
-    if (!type) {
-      status.textContent = 'Elige el tipo de esta prenda.';
-      field('garmentcategory').focus();
-      return;
-    }
+    const scannedPhoto = selection;
     save.disabled = true;
     try {
       await api('/api/wardrobe/save', {
@@ -105,9 +195,11 @@ function garmentCard(job, garment) {
         job_id: job.id,
         garment_id: garment.garment_id || '1',
         name: field('garmentname').value,
-        category: type
+        category: type,
+        subtype: subtypeSelect.value,
+        color: colorSelect.value || null
       });
-      status.textContent = 'Prenda guardada en tu clóset.';
+      if (card.isConnected && selection === scannedPhoto && !busy) resetScan();
       await loadWardrobe();
     } catch (error) {
       status.textContent = error.message;
@@ -125,7 +217,7 @@ function garmentCard(job, garment) {
       field('garmentcategory').focus();
       return;
     }
-    showOutfit({...garment, job_id: job.id, category: type, name: field('garmentname').value.trim()});
+    showOutfit({...garment, attributes:{...attributes,color_override:colorSelect.value}, job_id: job.id, category: type, name: field('garmentname').value.trim()});
   };
 
   return card;
@@ -142,18 +234,18 @@ async function prepareGarment(intent){
   if(!selection||busy)return;
   $('#result').hidden=true;setBusy(true);flow(0);message('Preparando tu foto…');
   try{
-    const job=await api('/api/segment',{...selection,k:4,size:600,texture:3,preprocess:true,region:'auto'});
+    const job=await api('/api/segment',{...selection,owner,engine:'auto',k:4,size:600,texture:3,preprocess:true,region:'auto'});
     while(true){
       const result=await api('/api/jobs/'+job.id);
       if(result.status==='done'){
         setBusy(false);showResult(result);
-        if(!result.found){message('No se encontró una prenda. Prueba otra foto con buena iluminación.',true);break;}
+        if(!result.found){message(result.classification?.message || 'No se encontró una prenda. Prueba otra foto con buena iluminación.',true);break;}
         const card=$('#result .result');
         if(intent==='combine'){
           message('Tu prenda está lista para combinar. Puedes corregir el tipo si hace falta.');
           card.querySelector('[data-field="outfit"]').click();
         }else{
-          message('Confirma el nombre y el tipo, y pulsa Guardar prenda en tu clóset.');
+          message('Revisa los datos y guarda la prenda en tu clóset.');
           card.scrollIntoView({behavior:'smooth',block:'start'});
           card.querySelector('[data-field="garmentname"]').focus({preventScroll:true});
         }
@@ -170,21 +262,118 @@ $('#run').onclick=()=>prepareGarment('save');
 $('#combine').onclick=()=>prepareGarment('combine');
 async function loadWardrobe(){if(!owner)return;try{wardrobe=await api('/api/wardrobe?owner='+encodeURIComponent(owner));renderCloset();const cards=[['Prendas',wardrobe.length],...['chaquetas','pantalones','camisas'].map(c=>[plural[c],wardrobe.filter(p=>p.category===c).length])];$('#stats').replaceChildren(...cards.map(([label,n])=>{const e=node('div');e.append(node('b','',n),node('span','',label));return e}))}catch(e){$('#wardrobegrid').replaceChildren(node('div','empty',e.message))}}
 $$('[data-group]').forEach(b=>b.onclick=()=>{group=b.dataset.group;filter='Todas';$$('[data-group]').forEach(e=>{const active=e===b;e.classList.toggle('active',active);e.setAttribute('aria-selected',active)});renderCloset()});$('#closetsearch').oninput=renderCloset;
-function colorName(p){return p.attributes?.color||p.features?.color_nombre||'Sin determinar'}
-function renderCloset(){const values=group==='type'?['Todas','camisas','chaquetas','pantalones']:['Todas',...new Set(wardrobe.map(colorName))].sort((a,b)=>a==='Todas'?-1:b==='Todas'?1:a.localeCompare(b));$('#closetfilters').replaceChildren(...values.map(v=>{const b=node('button','filter'+(filter===v?' active':''),group==='type'?(plural[v]||v):v);b.onclick=()=>{filter=v;renderCloset()};return b}));const q=$('#closetsearch').value.toLowerCase();let list=wardrobe.filter(p=>(filter==='Todas'||(group==='type'?p.category===filter:colorName(p)===filter))&&[p.name,p.category,JSON.stringify(p.attributes)].join(' ').toLowerCase().includes(q));if(group==='color')list.sort((a,b)=>colorName(a).localeCompare(colorName(b)));else list.sort((a,b)=>a.category.localeCompare(b.category));$('#closetcount').textContent=list.length+' prendas · '+(group==='type'?'organizadas por tipo':'organizadas por color');const grid=$('#wardrobegrid');grid.replaceChildren();let previous='';for(const p of list){const label=group==='type'?(plural[p.category]||p.category):colorName(p);if(label!==previous){const heading=node('div','color-heading',label);grid.append(heading);previous=label}const b=node('button','garment');b.append(img(p.images.sin_fondo,p.name),node('strong','',p.name),node('small','',(singular[p.category]||p.category)+' · '+colorName(p)),node('small','',p.attributes?.print?.label||''));b.onclick=()=>showDetail(p);grid.append(b)}if(!list.length){const e=node('div','empty');e.append(node('b','','✦'),document.createTextNode(wardrobe.length?'No hay prendas que coincidan con estos filtros.':'Tu clóset empieza contigo. Escanea una prenda y guárdala para verla aquí.'));grid.append(e)}}
-function showDetail(p){$('#detailname').textContent=p.name;$('#detailimage').src=p.images.sin_fondo;$('#detailattrs').replaceChildren(...attrsFor(p).map(a=>attribute(...a)));$('#detailoutfit').onclick=()=>{$('#detail').close();showOutfit(p)};$('#detail').showModal()}$('#closedetail').onclick=()=>$('#detail').close();$('#detail').onclick=e=>{if(e.target===$('#detail'))$('#detail').close()};
+function colorName(p){return p.attributes?.color_override||p.attributes?.color_family||catalog.unknown}
+const groupKey = {
+  type: p => p.category || '',
+  color: colorName,
+  pattern: p => p.attributes?.pattern_category || catalog.unknown,
+  texture: p => p.attributes?.texture_category || catalog.unknown
+};
+function groupLabel(key){
+  if (key === 'Todas') return key;
+  if (group === 'type') return plural[key] || 'Sin categoría';
+  return key || 'Sin determinar';
+}
+function renderCloset(){
+  const subtype = $('#closetsubtype');
+  const showSubtype = group === 'type' && Object.hasOwn(plural, filter);
+  $('#closetsubtypefield').hidden = !showSubtype;
+  if (showSubtype) {
+    const current = subtype.dataset.category === filter ? subtype.value : '';
+    const matching = wardrobe.filter(piece => piece.category === filter);
+    const options = subtypeLabels[filter] || [...new Set(matching.map(piece => piece.subtype).filter(Boolean))];
+    subtype.replaceChildren(new Option('Todas', ''), ...options.map(value =>
+      new Option(value)), new Option('Sin subcategoría','sin-subcategoria'));
+    subtype.dataset.category = filter;
+    subtype.value = [...subtype.options].some(option => option.value === current) ? current : '';
+  } else {
+    subtype.dataset.category = '';
+  }
+  const keyOf = groupKey[group];
+  const fixed={type:[...Object.keys(plural),''],color:[...Object.keys(catalog.colors),catalog.unknown],
+    pattern:catalog.patterns,texture:catalog.textures};
+  const values=fixed[group];
+  const catalogCount=$('#catalogcount');
+  catalogCount.hidden=group==='type'||!values.length;
+  const name={color:'colores',pattern:'patrones',texture:'texturas'}[group];
+  if(!catalogCount.hidden) catalogCount.textContent=values.filter(value=>value!==catalog.unknown).length+' '+name;
+  $('#closetfilters').replaceChildren(...['Todas', ...values].map(key => {
+    const button = node('button', 'filter' + (filter === key ? ' active' : ''), groupLabel(key));
+    button.setAttribute('aria-pressed', filter === key);
+    const hex=group==='color'&&catalog.colors[key];
+    if(hex){const swatch=node('span','swatch');swatch.style.background=hex;swatch.setAttribute('aria-hidden','true');button.prepend(swatch);}
+    button.onclick = () => {filter = key; renderCloset()};
+    return button;
+  }));
+  const query = $('#closetsearch').value.trim().toLowerCase();
+  const list = wardrobe.filter(piece => (filter === 'Todas' || keyOf(piece) === filter) &&
+    (!showSubtype || !subtype.value || (piece.subtype || 'sin-subcategoria') === subtype.value) &&
+    [piece.name, piece.category, piece.subtype, JSON.stringify(piece.attributes)].join(' ').toLowerCase().includes(query));
+  list.sort((a,b) => groupLabel(keyOf(a)).localeCompare(groupLabel(keyOf(b))));
+  $('#closetcount').textContent = list.length + ' prendas';
+  const grid = $('#wardrobegrid');
+  grid.replaceChildren();
+  let previous;
+  for (const piece of list) {
+    const label = groupLabel(keyOf(piece));
+    if (label !== previous) {
+      grid.append(node('div', 'color-heading', label));
+      previous = label;
+    }
+    const button = node('button', 'garment');
+    const description = [piece.subtype || singular[piece.category], colorName(piece)].filter(Boolean).join(' · ');
+    button.append(img(piece.images.normalizada || piece.images.sin_fondo, piece.name), node('strong', '', piece.name),
+      node('small', '', description), node('small', '', groupKey.pattern(piece)));
+    button.onclick = () => showDetail(piece);
+    grid.append(button);
+  }
+  if (!list.length) grid.append(node('div', 'empty', wardrobe.length
+    ? 'No hay prendas que coincidan con estos filtros.'
+    : filter==='Todas'?'Escanea una prenda y guárdala para verla aquí.':'Aún no hay prendas en esta categoría.'));
+}
+$('#closetsubtype').onchange=renderCloset;
+function showDetail(piece){
+  const dialog=$('#detail'), select=$('#detailcolor'), status=$('#detailcolorstatus'), save=$('#detailcolorsave');
+  function renderPiece(){
+    $('#detailname').textContent=piece.name;
+    $('#detailimage').src=piece.images.normalizada||piece.images.sin_fondo;
+    $('#detailattrs').replaceChildren(...[['Tipo',singular[piece.category]],['Subcategoría',piece.subtype],
+      ...attrsFor(piece)].map(values=>attribute(...values)));
+  }
+  renderPiece();
+  status.textContent='';
+  select.disabled=true;
+  save.disabled=true;
+  populateColors(select,piece.attributes?.color_override).then(()=>{save.disabled=false;})
+    .catch(error=>{status.textContent=error.message;});
+  $('#detailcolorform').onsubmit=async event=>{
+    event.preventDefault();
+    save.disabled=true;
+    try{
+      piece=await api('/api/wardrobe/color',{owner,id:piece.id,color:select.value||null});
+      renderPiece();
+      status.textContent='Color actualizado.';
+      await loadWardrobe();
+    }catch(error){status.textContent=error.message;}
+    finally{save.disabled=false;}
+  };
+  $('#detailoutfit').onclick=()=>{dialog.close();showOutfit(piece);};
+  dialog.showModal();
+}
+$('#closedetail').onclick=()=>$('#detail').close();
+$('#detail').onclick=event=>{if(event.target===$('#detail'))$('#detail').close();};
 const neutralColors = new Set(['negro', 'blanco', 'gris oscuro', 'gris', 'gris claro', 'crema',
-  'beige', 'caqui', 'marrón', 'azul marino', 'azul jean', 'jean claro']);
+  'beige', 'caqui']);
 
 function garmentColor(piece) {
-  return (piece.attributes?.color || piece.features?.color_nombre || '').toLowerCase();
+  return (piece.attributes?.color_override || piece.attributes?.color || piece.features?.color_nombre || '').toLowerCase();
 }
 
 function printStatus(piece) {
-  const label = piece.attributes?.print?.label;
-  if (label === 'Sin estampado') return 'plain';
-  if (!label || ['No concluyente', 'No analizado', 'Sin determinar'].includes(label)) return 'unknown';
-  return 'printed';
+  const label = piece.attributes?.pattern_group || piece.attributes?.pattern?.label || piece.attributes?.print?.label || '';
+  if (/^(Liso|Sin estampado|Sin patrón repetitivo visible)$/.test(label)) return 'plain';
+  if (/Rayas|Cuadros|Flores|Palmeras|Lunares|Geométrico|Gráfico|Animal print/.test(label)) return 'printed';
+  return 'unknown';
 }
 
 function colorHue(hex) {
@@ -196,24 +385,30 @@ function colorHue(hex) {
   return (hue * 60 + 360) % 360;
 }
 
-function outfitAffinity(first, second) {
-  const firstColor = garmentColor(first), secondColor = garmentColor(second);
-  const hasNeutral = neutralColors.has(firstColor) || neutralColors.has(secondColor);
-  let score = 0;
-  if (firstColor && secondColor && firstColor === secondColor) score = 3;
-  else if (hasNeutral && firstColor && secondColor) score = 4;
-  else {
-    const h1 = colorHue(first.features?.color_hex), h2 = colorHue(second.features?.color_hex);
-    if (h1 !== null && h2 !== null) {
-      const difference = Math.abs(h1 - h2);
-      const distance = Math.min(difference, 360 - difference);
-      score = distance <= 45 ? 3 : distance >= 145 ? 1 : -1;
-    }
+function colorRelation(first, second) {
+  const a = garmentColor(first), b = garmentColor(second);
+  const hueOf=piece=>colorHue(piece.attributes?.color_override
+    ? catalog.colors[piece.attributes.color_override] : piece.features?.color_hex);
+  const h1=hueOf(first), h2=hueOf(second);
+  if (a && a === b) return {score:4, reason:'Dos prendas comparten el tono ' + a + '.'};
+  if (h1 !== null && h2 !== null && !neutralColors.has(a) && !neutralColors.has(b)) {
+    const difference = Math.abs(h1 - h2);
+    const distance = Math.min(difference, 360 - difference);
+    if (distance <= 35) return {score:4, reason:'Los tonos ' + a + ' y ' + b + ' son cercanos en el círculo cromático.'};
+    if (distance >= 155) return {score:5, reason:'Los tonos ' + a + ' y ' + b + ' son aproximadamente complementarios.'};
   }
+  if (a && b && (neutralColors.has(a) || neutralColors.has(b))) {
+    const neutral = neutralColors.has(a) ? a : b;
+    return {score:2, reason:'El ' + neutral + ' aporta un tono neutro al conjunto.'};
+  }
+  return {score:0, reason:''};
+}
 
-  const firstPrint = printStatus(first), secondPrint = printStatus(second);
-  if (firstPrint === 'printed' && secondPrint === 'printed') score -= 5;
-  if ([firstPrint, secondPrint].includes('printed') && [firstPrint, secondPrint].includes('plain')) score += 2;
+function outfitAffinity(first, second) {
+  const {score} = colorRelation(first, second);
+  const patterns = [printStatus(first), printStatus(second)];
+  if (patterns.every(status => status === 'printed')) return score - 4;
+  if (patterns.includes('printed') && patterns.includes('plain')) return score + 1;
   return score;
 }
 
@@ -240,23 +435,15 @@ function rankOutfits(anchor, wardrobe) {
 
 function outfitReason(anchor, pieces) {
   const combination = [anchor, ...pieces];
-  const patterns = combination.map(printStatus);
-  if (patterns.filter(status => status === 'printed').length === 1 && patterns.includes('plain')) {
-    return 'La prenda lisa deja que destaque el estampado.';
-  }
-  const neutral = pieces.find(piece => neutralColors.has(garmentColor(piece)));
-  if (neutral && garmentColor(anchor) && garmentColor(anchor) !== garmentColor(neutral)) {
-    return 'El tono ' + garmentColor(neutral) + ' acompaña el ' + garmentColor(anchor) + ' de tu prenda elegida.';
-  }
-  if (garmentColor(anchor) && pieces.every(piece => garmentColor(piece) === garmentColor(anchor))) {
-    return 'Las prendas comparten color para un conjunto monocromático.';
-  }
-  return '';
+  const pairs = combination.flatMap((first, index) =>
+    combination.slice(index + 1).map(second => colorRelation(first, second)));
+  pairs.sort((a,b) => b.score - a.score);
+  return pairs[0]?.reason || 'Conjunto sugerido por los tipos de prenda disponibles.';
 }
 
 function outfitPiece(piece, fixed = false) {
   const card = node('div', 'outfit-piece');
-  const name = piece.name || singular[piece.category];
+  const name = piece.name || singular[piece.category] || 'Prenda';
   card.append(img(piece.images.normalizada || piece.images.sin_fondo, name),
     node('strong', '', name),
     node('small', '', fixed ? 'Tu prenda elegida' : 'De Mi clóset'));
@@ -305,7 +492,7 @@ async function showOutfit(anchor) {
 
 $('#closeoutfit').onclick = () => $('#outfit').close();
 
-function renderSamples(){const subset=samples.filter(s=>s.included&&(!$('#samplecategory').value||s.category===$('#samplecategory').value));const start=samplePage*4;$('#samplegrid').replaceChildren(...subset.slice(start,start+4).map(s=>{const b=node('button','garment');b.disabled=busy;b.append(img(s.image,s.name),node('strong','',s.record_id||s.name),node('small','',(plural[s.category]||s.category)+' · '+s.split));b.onclick=()=>{selection={sample:s.id,name:s.name};showPreview(s.image,s.name);window.scrollTo({top:0,behavior:'smooth'})};return b}));$('#samplecount').textContent=(subset.length?start+1:0)+'–'+Math.min(start+4,subset.length)+' de '+subset.length;$('#prev').disabled=samplePage===0;$('#next').disabled=start+4>=subset.length}$('#samplecategory').onchange=()=>{samplePage=0;renderSamples()};$('#prev').onclick=()=>{samplePage--;renderSamples()};$('#next').onclick=()=>{samplePage++;renderSamples()};
+function renderSamples(){const subset=samples.filter(s=>s.included&&(!$('#samplecategory').value||s.category===$('#samplecategory').value));const start=samplePage*4;$('#samplegrid').replaceChildren(...subset.slice(start,start+4).map(s=>{const b=node('button','garment');b.disabled=busy;b.append(img(s.image,'Foto del catálogo'),node('strong','',s.record_id||'Ejemplo'),node('small','',(plural[s.category]||s.category)+' · '+s.split));b.onclick=()=>{selection={sample:s.id,rotation:0};showPreview(s.image);window.scrollTo({top:0,behavior:'smooth'})};return b}));$('#samplecount').textContent=(subset.length?start+1:0)+'–'+Math.min(start+4,subset.length)+' de '+subset.length;$('#prev').disabled=samplePage===0;$('#next').disabled=start+4>=subset.length}$('#samplecategory').onchange=()=>{samplePage=0;renderSamples()};$('#prev').onclick=()=>{samplePage--;renderSamples()};$('#next').onclick=()=>{samplePage++;renderSamples()};
 async function init(){try{const saved=localStorage.getItem('closet-gossip-profile');if(saved){profile=JSON.parse(saved);$('#entryname').value=profile.name;$('#entryuser').value=profile.user;if(localStorage.getItem('closet-gossip-active')!=='no')enter()}samples=await api('/api/samples');renderSamples()}catch(e){message(e.message,true)}}
 $('#entryform').addEventListener('submit',()=>localStorage.setItem('closet-gossip-active','yes'));init();
 </script></body></html>

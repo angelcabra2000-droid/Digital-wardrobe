@@ -26,6 +26,10 @@ def status():
     return {**info, 'ready': ready, 'engine': 'cnn', 'method': 'U²-Net + CNN ResNet-18'}
 
 
+def segmentation_ready():
+    return (MODELS / 'u2net_cloth_seg.onnx').is_file() and importlib.util.find_spec('onnxruntime') is not None
+
+
 def tensor_image(image, size=224):
     """Misma geometría en entrenamiento e inferencia: conservar proporción y rellenar."""
     im = ImageOps.pad(image.convert('RGB'), (size, size), method=Image.Resampling.BILINEAR, color=(245, 245, 245))
@@ -127,7 +131,7 @@ def model_output(rgb, filename, size):
 
 
 def clothing_labels(rgb):
-    if not status()['ready']:
+    if not segmentation_ready():
         raise RuntimeError('La red no está instalada. Revisa requirements-cnn.txt y los pesos del modelo.')
     height, width = rgb.shape[:2]
     return decode_labels(model_output(rgb, 'u2net_cloth_seg.onnx', 768), (width, height))

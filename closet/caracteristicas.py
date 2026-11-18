@@ -58,6 +58,18 @@ def nombre_color(lab: np.ndarray) -> str:
     return _NOMBRES[int(np.argmin(d))]
 
 
+def _mismo_color_bajo_sombra(a, b):
+    """Compara tonos Lab separando luminosidad de dirección cromática."""
+    c1, c2 = np.linalg.norm(a[1:]), np.linalg.norm(b[1:])
+    if max(c1, c2) < 10:
+        return abs(a[0] - b[0]) < 40
+    if min(c1, c2) < 7:
+        return False
+    coseno = float(np.dot(a[1:], b[1:]) / (c1 * c2))
+    return coseno >= .96 and (abs(c1-c2) <= 10 or
+                                (abs(a[0]-b[0]) >= 12 and min(c1,c2)/max(c1,c2) >= .62))
+
+
 def caracteristicas_color(rgb: np.ndarray, nucleo: np.ndarray, cfg: CaracteristicasConfig | None = None) -> dict:
     """Color dominante, segundo color, claridad, saturación y cuántos colores distintos tiene la prenda."""
     cfg = cfg or CaracteristicasConfig()
@@ -81,6 +93,12 @@ def caracteristicas_color(rgb: np.ndarray, nucleo: np.ndarray, cfg: Caracteristi
             significativos.append(j)
 
     croma = np.hypot(lab[:, 1], lab[:, 2])
+    cromaticos = []
+    for j in orden:
+        if frac[j] < cfg.fraccion_color_min and cromaticos:
+            continue
+        if all(not _mismo_color_bajo_sombra(centros[j], centros[i]) for i in cromaticos):
+            cromaticos.append(j)
     r0 = np.rint(rgb_cluster[0]).astype(int)
     d = {
         "color_nombre": nombre_color(centros[orden[0]]),
@@ -92,6 +110,7 @@ def caracteristicas_color(rgb: np.ndarray, nucleo: np.ndarray, cfg: Caracteristi
         "claridad_media": round(float(lab[:, 0].mean()), 2),
         "croma_medio": round(float(croma.mean()), 2),
         "n_colores": len(significativos),
+        "n_colores_cromaticos": len(cromaticos),
     }
     if len(orden) > 1:
         r1 = np.rint(rgb_cluster[1]).astype(int)

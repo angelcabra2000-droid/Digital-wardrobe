@@ -13,8 +13,6 @@ import random
 
 import numpy as np
 from PIL import Image, ImageEnhance
-import torch
-from torchvision.models import resnet18, ResNet18_Weights
 
 from .red_neuronal import ROOT, MODELS, CLASSES, tensor_image
 from .pipeline import procesar_foto
@@ -43,12 +41,14 @@ def load_rows(root):
 
 
 def train(root=ROOT, output=MODELS, epochs=250):
+    import torch
+    from torchvision.models import resnet18, ResNet18_Weights
+
     torch.manual_seed(42); np.random.seed(42); random.seed(42); torch.set_num_threads(4)
     device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
     rows = load_rows(root)
     development, valid = split_groups(rows)
     base = root/'Aplicacion base de datos'
-    if not base.exists(): base = root/'BasedeDatos'
     encoder = resnet18(weights=ResNet18_Weights.DEFAULT)
     encoder.fc = torch.nn.Identity()
     encoder.eval().to(device)
