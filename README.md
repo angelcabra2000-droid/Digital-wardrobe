@@ -34,7 +34,7 @@ python -m closet.evidencia
 
 El informe autocontenido se guarda en `resultados/evidencia/informe.html`. También se genera `predicciones.csv` con la categoría real y sugerida, el voto, la distancia al vecino más cercano y las métricas por máscara manual disponible. En el estudio se puede descargar el histograma, la máscara, los recortes y el JSON de cada análisis.
 
-El KNN general se seleccionó comparando 28 combinaciones de bloques de características y valores de k, dejando fuera grupos completos de entrenamiento. La configuración elegida usa **52 descriptores** (43 de forma, 4 de color y 5 de textura) y **k = 3**. Se conserva el dato original de 82,2 % de exactitud interna para el clasificador previo al filtro de incertidumbre. El informe mide aparte las 39 fotos reservadas con el filtro activo. Si se cambia el procesamiento o el catálogo, mueve la caché `resultados/entrenamiento_caracteristicas/` antes de reentrenar para regenerar los vectores.
+El KNN general se seleccionó comparando 28 configuraciones y dejando fuera grupos completos de entrenamiento. La configuración actual usa **47 descriptores** y **k = 1**. Su exactitud interna previa al rechazo fue 80,8 %. El informe evalúa 77 fotos reservadas con el rechazo activo. La comparación mide la clasificación en todas ellas y el IoU en las fotos con máscara manual. Al cambiar el catálogo o el procesamiento, regenera la caché de vectores antes de reentrenar.
 
 Agrega o corrige anotaciones en `datos/subcategorias.csv` con el ID de `datos/dataset.csv` y el nombre que muestra el selector de la aplicación. Se anotaron visualmente ejemplos de entrenamiento. El KNN de cada familia requiere al menos dos subcategorías con dos grupos independientes cada una. Las subcategorías con menos ejemplos se pueden seleccionar manualmente. Las etiquetas de jean y cuero se refieren a la apariencia visual de la foto.
 
@@ -47,7 +47,7 @@ Agrega o corrige anotaciones en `datos/subcategorias.csv` con el ID de `datos/da
 | 2 | `segmentacion`, `evaluacion` | K-means + regiones conectadas -> máscara de la prenda; medición con IoU | ✅ listo (IoU 0.92 en entrenamiento) |
 | 3 | `normalizacion`, `alertas`, `pipeline` | Recortar, enderezar y escalar la prenda; alertas de recorte dudoso | ✅ listo |
 | 4 | `caracteristicas`, `atributos` | Color, forma, textura y descriptores visuales estimados | implementado |
-| 5 | `clasificacion` | KNN sobre características; sugerencia revisable de categoría | implementado; validación interna 82.2% |
+| 5 | `clasificacion` | KNN sobre características y sugerencia de categoría | Validación interna 80,8 % |
 | Web | `web`, `frontend/gossip.html` | Interfaz, análisis, historial y clóset SQLite | implementado |
 
 ## Estructura
@@ -220,7 +220,7 @@ El servidor `closet/web.py` usa HTTP de la biblioteca estándar y escucha única
 
 La resolución de análisis está limitada a 800 px; los PNG corresponden a esa resolución de procesamiento. Es un estudio local, no un servicio preparado para exponer en Internet.
 
-El catálogo visual lee los 142 registros de `datos/dataset.csv`, muestra el ID, la categoría, el conjunto y las exclusiones. Las 129 fotos incluidas se dividen en 90 de entrenamiento y 39 de prueba. Las fotos excluidas se pueden consultar con el filtro del catálogo. La fuente de fotografías es `Aplicacion base de datos/`.
+El catálogo visual lee 267 registros de `datos/dataset.csv`. Las 254 fotos incluidas se dividen en 177 de entrenamiento y 77 de prueba. La fuente de fotografías es `Aplicacion base de datos/`.
 
 
 ## Closet Gossip: interfaz del ZIP y uso desde el celular

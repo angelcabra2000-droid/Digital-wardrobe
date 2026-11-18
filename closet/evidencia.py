@@ -231,21 +231,21 @@ def compare_segmentation(output):
         raise RuntimeError('Instala onnxruntime y ejecuta python -m closet.preparar_cnn --solo-segmentacion')
     model = json.loads(MODEL.read_text(encoding='utf-8'))
     names = ('K-means', 'U²-Net', 'Híbrido')
+    catalog = cargar_csv(ROOT / 'datos/dataset.csv')
+    test = [r for r in catalog if r.incluir and r.split == 'prueba']
+    if {r.grupo or r.id for r in test} & {r['group'] for r in model['records']}:
+        raise ValueError('Hay grupos compartidos entre entrenamiento y prueba')
     rows, examples = [], []
-    for row in cargar_csv(ROOT / 'datos/dataset.csv'):
-        if not (row.incluir and row.split == 'prueba' and row.muestra_mascara):
-            continue
+    for index, row in enumerate(test, 1):
         path = ROOT / 'muestra' / (Path(nombre_en_muestra(row)).stem + '_gt.png')
-        if not path.is_file():
-            continue
         result = procesar_foto(ROOT / 'Aplicacion base de datos' / row.ruta,
                               cfg_pre=PreprocesoConfig(lado_max=model['training_size']), motor='hibrido')
         original = result.preproceso.original
-        truth = reducir_mascara(cargar_mascara(path), *original.shape[:2])
+        truth = reducir_mascara(cargar_mascara(path), *original.shape[:2]) if row.muestra_mascara and path.is_file() else None
         masks = (result.mascaras['mascara_kmeans'], result.mascaras['mascara_u2net'], result.segmentacion.mascara)
         measures = []
         for name, mask in zip(names, masks):
-            iou, _, _, f1 = metricas(mask, truth)
+            iou, _, _, f1 = metricas(mask, truth) if truth is not None else (None,)*4
             prediction = None
             if mask.any() and not fondo_impide_segmentar(revisar_segmentacion(original, mask)[0]):
                 norm = normalizar_prenda(original, mask)
@@ -254,10 +254,12 @@ def compare_segmentation(output):
                 prediction = refine_silhouette(guess, norm.mascara)['category']
             rows.append({'id':row.id,'real':row.categoria,'segmentador':name,'iou':iou,'f1':f1,'predicha':prediction})
             measures.append(iou)
-        examples.append((measures[0], row.id, original, truth, masks, measures))
-        print(f'{row.id}: ' + ' / '.join(f'{value:.3f}' for value in measures), flush=True)
+        if truth is not None:
+            examples.append((measures[0], row.id, original, truth, masks, measures))
+        print(f'{index}/{len(test)} {row.id}: ' + (' / '.join(f'{value:.3f}' for value in measures)
+              if truth is not None else 'clasificación sin máscara de referencia'), flush=True)
     if not rows:
-        raise ValueError('No hay máscaras manuales de prueba disponibles')
+        raise ValueError('No hay fotos reservadas para la evaluación')
     output.mkdir(parents=True, exist_ok=True)
     with (output / 'comparacion_segmentacion.csv').open('w', encoding='utf-8', newline='') as stream:
         writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
@@ -265,18 +267,33 @@ def compare_segmentation(output):
         writer.writerows(rows)
     summaries = []
     distributions = []
+    outcomes = []
     for name in names:
         subset = [row for row in rows if row['segmentador'] == name]
-        ious = [row['iou'] for row in subset]
+        ious = [row['iou'] for row in subset if row['iou'] is not None]
         distributions.append(ious)
-        summaries.append((name, len(subset), f'{np.mean(ious):.3f}',
-                          sum(row['real'] == row['predicha'] for row in subset),
-                          sum(bool(row['predicha']) for row in subset)))
-    figure = Figure(figsize=(7, 3.5), layout='constrained')
-    axis = figure.subplots()
-    axis.boxplot(distributions)
-    axis.set_xticks(range(1, 4), names)
-    axis.set(ylabel='IoU con máscara manual', ylim=(0, 1.02))
+        correct = sum(row['real'] == row['predicha'] for row in subset)
+        empty = sum(not row['predicha'] for row in subset)
+        wrong = len(subset) - empty - correct
+        outcomes.append((correct, wrong, empty))
+        summaries.append((name, len(subset), correct, wrong, empty, len(ious),
+                          f'{np.mean(ious):.3f}' if ious else '—'))
+    figure = Figure(figsize=(10, 4), layout='constrained')
+    classification, segmentation = figure.subplots(1, 2)
+    bottom = np.zeros(len(names))
+    for values, label, color in zip(zip(*outcomes), ('Correcta', 'Equivocada', 'Vacía'),
+                                     ('#26745f', '#ae5638', '#8897a3')):
+        classification.bar(names, values, bottom=bottom, label=label, color=color)
+        bottom += values
+    classification.set(ylabel='Fotos de prueba', title='Resultado del mismo KNN')
+    classification.legend()
+    if examples:
+        segmentation.boxplot(distributions)
+        segmentation.set_xticks(range(1, 4), names)
+        segmentation.set(ylabel='IoU con máscara manual', ylim=(0, 1.02), title='Calidad del recorte anotado')
+    else:
+        segmentation.text(.5, .5, 'Sin máscaras manuales de prueba', ha='center', va='center')
+        segmentation.axis('off')
     parts = ['<!doctype html><html lang="es"><meta charset="utf-8"><title>Comparación de segmentación</title>'
              '<style>body{margin:2rem auto;max-width:980px;padding:0 1rem;font:16px system-ui;color:#243d37}'
              'img{max-width:100%;height:auto}th,td{padding:.5rem;border-bottom:1px solid #d6e4df}</style>'
@@ -290,14 +307,13 @@ def compare_segmentation(output):
              'El IoU divide los píxeles compartidos por las dos máscaras entre todos los píxeles cubiertos por cualquiera '
              'de ellas. El diagrama de cajas muestra mediana, cuartiles y dispersión. En los ejemplos de abajo, '
              'compara fondo adherido, bordes y piezas delgadas antes de interpretar la cifra global.</p>'
-             '<p>Fotos de prueba con máscara manual. Los tres recortes pasan al mismo KNN del catálogo. '
-             'La evaluación prescinde de las correcciones de perfiles.</p>',
-             table(('Segmentador','Fotos','IoU medio','Aciertos','Clasificadas'), summaries),
-             inline_plot(figure, 'Distribución de IoU por segmentador'),
-             '<p>En estas 12 fotos el híbrido recuperó parte de la calidad que perdía K-means, mientras que U²-Net '
-             'alcanzó el mayor IoU medio. La decisión sobre el recorte tiene un efecto distinto en el KNN: un buen '
-             'contorno permite medir la forma con más fidelidad y todavía puede producir una etiqueta incierta. '
-             'Esta muestra permite comparar los tres métodos en el catálogo y deja abierta su evaluación en otras escenas.</p>']
+             f'<p>La clasificación se compara en las {len(test)} fotos reservadas de prueba. '
+             f'El IoU se calcula en las {len(examples)} fotos de prueba con máscara manual disponible. '
+             'Las correcciones personales quedan fuera de la evaluación.</p>',
+             table(('Segmentador','Fotos de prueba','Aciertos','Errores','Vacías','Con máscara manual','IoU medio'), summaries),
+             inline_plot(figure, 'Resultados de clasificación e IoU por segmentador'),
+             '<p>Las barras usan todas las fotos reservadas. Las cajas de IoU usan el subconjunto anotado. '
+             'Una categoría vacía indica que el recorte se bloqueó o que el KNN aplicó el rechazo por incertidumbre.</p>']
     for _, ident, rgb, truth, masks, ious in sorted(examples, key=lambda example:example[0])[:3]:
         figure = Figure(figsize=(10, 3), layout='constrained')
         for axis, image, title in zip(figure.subplots(1, 5), (rgb, truth, *masks),
